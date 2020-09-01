@@ -1,2 +1,2 @@
 # ompy
-Python library development, mainly for mathematical usage.
+Python library development, mainly mathematical tools.
