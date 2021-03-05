@@ -17,12 +17,12 @@ def to_dec_degrees(
     from_gradians=False, 
     from_turns=False):
   
-    arguments = list(locals().values())[-3:]
+    arguments_False_by_default = list(locals().values())[-3:]
     
-    if any(arguments):
+    if any(arguments_False_by_default):
 
         try:
-            assert arguments.count(True) == 1
+            assert arguments_False_by_default.count(True) == 1
 
         except AssertionError:
             raise TypeError(
