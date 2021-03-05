@@ -25,7 +25,8 @@ def to_dec_degrees(
 
         except AssertionError:
             raise TypeError(
-                "Unit error; more than one unit requested for converting.\nOnly one supported.")
+                "Unit error; more than one unit requested for converting.\nOnly one supported."
+            )
 
     if from_degs_mins_secs:
 
