@@ -31,8 +31,8 @@ def to_dec_degrees(
     if from_degs_mins_secs:
 
         try:
-            assert type(theta) == str and re.fullmatch("[0-9]+[d" + str(chr(176)) + "][0-9]{2}'[0-9]{2}.*[0-9]*''",
-                                                       theta)
+            assert type(theta) == str and re.fullmatch(
+                "[0-9]+[d" + str(chr(176)) + "][0-9]{2}'[0-9]{2}.*[0-9]*''", theta)
 
         except AssertionError:
             raise TypeError(
