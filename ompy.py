@@ -81,3 +81,31 @@ def to_dec_degrees(
         # Angle conversion from radians
 
         return theta * 180 / math.pi
+
+def to_radians(
+    theta, 
+    from_dec_degrees=True, 
+    from_degs_mins_secs=False, 
+    from_gradians=False, 
+    from_turns=False
+    ):
+
+    """
+    It takes an angle given in the following units: degrees-minutes-seconds,
+    radians, gradians and turns; and returns the angle converted in decimal degrees.
+    Angles must be provided as 'int' or 'float', denoting the magnitude with 
+    no unit, except for degrees-minutes-seconds, which is to be 'str' pattern 
+    DdMM'SS'' or D°MM'SS''.
+    """
+  
+    arguments_False_by_default = list(locals().values())[-3:]
+    
+    if any(arguments_False_by_default):
+        # checking on how many units were passed as True
+
+        try:
+            assert arguments_False_by_default.count(True) == 1
+
+        except AssertionError:
+            raise TypeError(
+                "Unit error; more than one unit requested for converting.\nOnly one supported.")
