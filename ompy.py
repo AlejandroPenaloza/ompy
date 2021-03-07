@@ -17,9 +17,17 @@ def to_dec_degrees(
     no unit, except for degrees-minutes-seconds, which is to be 'str' pattern 
     DdMM'SS'' or D°MM'SS''.
     """
-  
-    arguments_False_by_default = list(locals().values())[-3:]
     
+    arguments = [False if type(argument) == bool else True for argument in list(locals().values())[1:]]
+    
+    if any(arguments):
+        
+        raise TypeError(
+            "Class type not supported; use only 'True' or 'False' as arguments for current angle units to convert."
+        )
+
+    arguments_False_by_default = list(locals().values())[2:5]
+
     if any(arguments_False_by_default):
         # checking on how many units were passed as True
 
@@ -31,18 +39,19 @@ def to_dec_degrees(
                 "Unit error; more than one unit requested for converting.\nOnly one supported.")
     
     if from_degs_mins_secs:
-        #  Angle conversion from degrees, minutes and seconds
+        #Angle conversion from degrees, minutes and seconds
 
         try:
             assert type(theta) == str and re.fullmatch(
-                "[0-9]+[d"+str(chr(176))+"][0-9]{2}'[0-9]{2}.*[0-9]*''", theta)
+                "[0-9]+[d"+str(chr(176))+"][0-5][0-9]'[0-5][0-9].*[0-9]*''", theta)
 
         except AssertionError:
             raise TypeError(
                 "Angle ", theta, 
-                " class type not supported; not matching correct format.",
+                " class type not supported; not matching correct format or out of numeric range.",
                 "Requested numeric type and degrees, minutes, seconds pattern(D", 
-                str(chr(176)), "MM'SS'') or (DdMM'SS''")
+                str(chr(176)), "MM'SS'') or (DdMM'SS''"
+                )
             
         if str(chr(176)) in theta:
             separator = str(chr(176))
@@ -89,7 +98,7 @@ def to_radians(
     from_gradians=False, 
     from_turns=False
     ):
-
+    
     """
     It takes an angle given in the following units: degrees-minutes-seconds,
     radians, gradians and turns; and returns the angle converted in decimal degrees.
