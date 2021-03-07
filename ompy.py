@@ -31,7 +31,7 @@ def to_dec_degrees(
                 "Unit error; more than one unit requested for converting.\nOnly one supported.")
     
     if from_degs_mins_secs:
-        # Angle conversion from degrees, minutes and seconds
+        #  Angle conversion from degrees, minutes and seconds
 
         try:
             assert type(theta) == str and re.fullmatch(
