@@ -81,7 +81,7 @@ def to_dec_degrees(
         
         return 9 * theta / 10
 
-    if from_turns:
+    elif from_turns:
         # Angle conversion from turns
 
         return theta * 360
@@ -90,7 +90,7 @@ def to_dec_degrees(
         # Angle conversion from radians
 
         return theta * 180 / math.pi
-    
+
 
 def to_radians(
     theta, 
