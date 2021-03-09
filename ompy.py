@@ -42,7 +42,9 @@ def to_dec_degrees(
     DdMM'SS'' or D°MM'SS''.
     """
     
-    unit_arguments = [False if type(argument) == bool else True for argument in list(locals().values())[1:]]
+    unit_arguments = [
+        False if type(argument) == bool else True for argument in list(locals().values())[1:]
+                      ]
     
     if any(unit_arguments):
         
@@ -114,9 +116,6 @@ def to_dec_degrees(
         # Angle conversion from radians
 
         return theta * 180 / math.pi
-
-
-to_dec_degrees(3, from_radians=True, from_turns=True)
 
 class Def():
 
