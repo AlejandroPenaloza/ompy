@@ -129,7 +129,7 @@ def to_dec_degrees(
 
 def to_radians(
     theta, 
-    from_dec_degrees=Deflt(True), 
+    from_dec_degrees=DefVal(True),
     from_degs_mins_secs=False, 
     from_gradians=False, 
     from_turns=False
