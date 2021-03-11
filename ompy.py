@@ -3,7 +3,7 @@ import re
 import traceback
 
 
-class Deflt:
+class DefVal:
 
     def __init__(self, value):
         self.value = value
