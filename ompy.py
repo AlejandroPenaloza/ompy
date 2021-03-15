@@ -11,7 +11,7 @@ class DefVal:
 
 def are_bool(tuple_arg):
     """
-    :param tuple_arg (tuple):
+    :param: tuple_arg (tuple).
     :return: True if all item in tuple_arg are booleans. False otherwise.
     """
 
