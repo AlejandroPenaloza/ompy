@@ -140,7 +140,7 @@ def to_radians(
     from_sexagesimal=False, 
     from_gradians=False, 
     from_turns=False
-    ):
+):
     
     """
     It takes an angle given in the following units: degrees-minutes-seconds,
@@ -194,7 +194,7 @@ def to_radians(
             separator = str(chr(176))
 
         else:
-          
+
             separator = "d"
 
         sexagesimal = theta.split(separator)
@@ -272,7 +272,7 @@ def to_gradians(
         Select it (True) if current unit from which to convert is turns / revolutions.
 
     Returns
-    -------
+    ----------
     float, original angle now in decimal degrees.
     """
 
@@ -316,14 +316,15 @@ def to_gradians(
                 "Requested numeric type and degrees, minutes, seconds pattern: D" +  
                 str(chr(176)) + "MM'SS'' or DdMM'SS''"
             )
-
+            
         separator = re.findall("[0-9]+[d"+str(chr(176))+"]", theta)[0][-1]
 
         sexagesimal = theta.split(separator)
         degrees = float(sexagesimal[0])
         minutes = float(sexagesimal[1].split("'")[0])
         seconds = float(sexagesimal[1].split("'")[1])
-        return round(10 * (degrees + (minutes/60) + (seconds/3600)) / 9, 15)
+        gradians = round(10 * (degrees + (minutes/60) + (seconds/3600)) / 9, 15)
+        return gradians
 
     elif type(theta) not in (int, float):
         
@@ -349,4 +350,4 @@ def to_gradians(
         # Angle conversion from decimal degrees.
 
         gradians = round(10 * theta / 9, 15)
-        return gradians
+        return gradians 
