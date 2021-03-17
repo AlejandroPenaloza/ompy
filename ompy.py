@@ -108,7 +108,7 @@ def to_dec_degrees(
 
     try:
 
-      assert type(theta) == int or type(theta) == float
+        assert type(theta) == int or type(theta) == float
 
     except AssertionError:
 
@@ -160,12 +160,14 @@ def to_radians(
         #from_dec_degrees = from_dec_degrees.value
 
     if not are_bools(unit_arguments):
+
         raise TypeError(
             "Class type not supported; use only 'True' or 'False' as " + 
             "arguments for current angle units to convert."
         )
 
     if unit_arguments.count(True) >= 2:
+
         raise ValueError(
             "Unit error; more than one unit requested for converting.\nOnly one supported."
         )
@@ -203,7 +205,7 @@ def to_radians(
 
     try:
 
-      assert type(theta) == int or type(theta) == float
+        assert type(theta) == int or type(theta) == float
 
     except AssertionError:
 
@@ -270,7 +272,7 @@ def to_gradians(
         Select it (True) if current unit from which to convert is turns / revolutions.
 
     Returns
-    ----------
+    -------
     float, original angle now in decimal degrees.
     """
 
@@ -305,7 +307,7 @@ def to_gradians(
         # Angle conversion from sexagesimal angle measurement (degrees, minutes and seconds).
         
         if type(theta) != str and not re.fullmatch(
-            "[0-9]+[d"+str(chr(176))+"][0-5][0-9]'[0-5][0-9].*[0-9]*''", theta
+            "[0-9]+[d" + str(chr(176)) + "][0-5][0-9]'[0-5][0-9].*[0-9]*''", theta
         ):
           
             raise TypeError(
@@ -320,6 +322,7 @@ def to_gradians(
             separator = str(chr(176))
 
         else:
+
             separator = "d"
 
         sexagesimal = theta.split(separator)
@@ -349,7 +352,7 @@ def to_gradians(
         return gradians
 
     else:
-        # Angle conversion from decimal degrees.
+         # Angle conversion from decimal degrees.
 
-        gradians = round(10 * theta / 9, 15)
-        return gradians
+         gradians = round(10 * theta / 9, 15)
+         return gradians
