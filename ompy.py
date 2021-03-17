@@ -10,10 +10,10 @@ class DefVal():
         self.value = value
 
 
-def are_bool(tuple_arg):
+def are_bools(tuple_arg):
 
     """
-    #### are_bool
+    #### are_bools
     - param: tuple_arg (tuple).
     - returns: True if all items in tuple_arg are booleans. False otherwise.
     """
@@ -133,6 +133,7 @@ def to_dec_degrees(
 
         return theta * 180 / math.pi
 
+
 def to_radians(
     theta, 
     from_dec_degrees=DefVal(True), 
@@ -158,7 +159,7 @@ def to_radians(
         unit_arguments = unit_arguments[1:]
         #from_dec_degrees = from_dec_degrees.value
 
-    if not are_bool(unit_arguments):
+    if not are_bools(unit_arguments):
         raise TypeError(
             "Class type not supported; use only 'True' or 'False' as " + 
             "arguments for current angle units to convert."
@@ -235,8 +236,6 @@ def to_radians(
             "No angle unit was selected; all units are False."
         )
 
-import numpy as np
-np.asarray()
 
 def to_gradians(
     theta,
@@ -282,6 +281,7 @@ def to_gradians(
         if type(theta) != str and not re.fullmatch(
             "[0-9]+[d"+str(chr(176))+"][0-5][0-9]'[0-5][0-9].*[0-9]*''", theta
             ):
+
             raise TypeError(
                 "Angle " + str(theta) +  
                 " class type not supported; not matching correct format or out of numeric range. " + 
@@ -294,6 +294,7 @@ def to_gradians(
             separator = str(chr(176))
 
         else:
+
             separator = "d"
 
         sexagesimal = theta.split(separator)
@@ -327,8 +328,4 @@ def to_gradians(
 
          gradians = round(10 * theta / 9, 15)
          return gradians
-  
-
-#to_gradians(1,  from_dec_degrees=True, from_radians=True, from_turns=False)
-to_gradians(1, from_turns=True)
 
