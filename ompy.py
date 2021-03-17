@@ -316,14 +316,8 @@ def to_gradians(
                 "Requested numeric type and degrees, minutes, seconds pattern: D" +  
                 str(chr(176)) + "MM'SS'' or DdMM'SS''"
             )
-            
-        if str(chr(176)) in theta:
 
-            separator = str(chr(176))
-
-        else:
-
-            separator = "d"
+        separator = re.findall("[0-9]+[d"+str(chr(176))+"]", theta)[0][-1]
 
         sexagesimal = theta.split(separator)
         degrees = float(sexagesimal[0])
@@ -352,7 +346,7 @@ def to_gradians(
         return gradians
 
     else:
-         # Angle conversion from decimal degrees.
+        # Angle conversion from decimal degrees.
 
-         gradians = round(10 * theta / 9, 15)
-         return gradians
+        gradians = round(10 * theta / 9, 15)
+        return gradians
