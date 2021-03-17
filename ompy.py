@@ -4,7 +4,7 @@ import traceback
 import inspect
 
 
-class DefVal():
+class DefVal:
 
     def __init__(self, value):
         self.value = value
@@ -13,7 +13,7 @@ class DefVal():
 def are_bools(tuple_arg):
 
     """
-    #### are_bools
+    #### are_bool
     - param: tuple_arg (tuple).
     - returns: True if all items in tuple_arg are booleans. False otherwise.
     """
@@ -141,7 +141,7 @@ def to_radians(
     from_gradians=False, 
     from_turns=False
     ):
-
+    
     """
     It takes an angle given in the following units: degrees-minutes-seconds,
     radians, gradians and turns; and returns a 'float' representing 
@@ -192,6 +192,7 @@ def to_radians(
             separator = str(chr(176))
 
         else:
+          
             separator = "d"
 
         sexagesimal = theta.split(separator)
@@ -246,13 +247,37 @@ def to_gradians(
 ):
 
     """
+    Converts the provided angle into centesimal measurement system used in gradians.
+    
+    
+    Parameters
+    ----------
+    theta           : int, float or str; required. 
+        Angle to convert. If provided as str, current unit has to be sexagesimal system as 
+        respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern (no maximum numerical D).
 
+    from_dec_degrees: bool, default True.
+        Select it (True) if current unit from which to convert is decimal degrees.
+
+    from_radians    : bool, default False.
+        Select it (True) if current unit from which to convert is radians.
+
+    from_sexagesimal: bool, default False.
+        Select it (True) if current unit from which to convert is degrees, minutes 
+        and seconds (sexagesimal measurement system).
+
+    from_turns      : bool, default False.
+        Select it (True) if current unit from which to convert is turns / revolutions.
+
+    Returns
+    ----------
+    float, original angle now in decimal degrees.
     """
 
     unit_arguments = tuple(locals().values())[1:]
     
     # Checking whether unit arguments are booleans.
-    if not are_bools(unit_arguments):
+    if not are_bools(unit_arguments): 
 
         raise TypeError(
             "Class type not supported; use only 'True' or 'False' as " + 
@@ -271,6 +296,7 @@ def to_gradians(
     passed_True_unit_args = re.findall("f.+True", passed_unit_args)
 
     if len(passed_True_unit_args) >= 2:
+
         raise ValueError(
             "Unit error; more than one unit requested for converting.\nOnly one supported."
         )
@@ -280,8 +306,8 @@ def to_gradians(
         
         if type(theta) != str and not re.fullmatch(
             "[0-9]+[d"+str(chr(176))+"][0-5][0-9]'[0-5][0-9].*[0-9]*''", theta
-            ):
-
+        ):
+          
             raise TypeError(
                 "Angle " + str(theta) +  
                 " class type not supported; not matching correct format or out of numeric range. " + 
@@ -294,7 +320,6 @@ def to_gradians(
             separator = str(chr(176))
 
         else:
-
             separator = "d"
 
         sexagesimal = theta.split(separator)
@@ -320,12 +345,11 @@ def to_gradians(
     elif from_turns:
         # Angle conversion from turns/revolutions.
 
-        gradians = round(400 * theta, 15)
+        gradians = float(round(400 * theta, 15))
         return gradians
 
     else:
-         # Angle conversion from decimal degrees.
+        # Angle conversion from decimal degrees.
 
-         gradians = round(10 * theta / 9, 15)
-         return gradians
-
+        gradians = round(10 * theta / 9, 15)
+        return gradians
