@@ -141,7 +141,7 @@ def to_radians(
     from_gradians=False, 
     from_turns=False
     ):
-    
+
     """
     It takes an angle given in the following units: degrees-minutes-seconds,
     radians, gradians and turns; and returns a 'float' representing 
@@ -252,7 +252,7 @@ def to_gradians(
     unit_arguments = tuple(locals().values())[1:]
     
     # Checking whether unit arguments are booleans.
-    if not are_bool(unit_arguments): 
+    if not are_bools(unit_arguments):
 
         raise TypeError(
             "Class type not supported; use only 'True' or 'False' as " + 
