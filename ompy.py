@@ -306,12 +306,6 @@ def to_gradians(
     if from_sexagesimal:
         # Angle conversion from sexagesimal angle measurement (degrees, minutes and seconds).
 
-        if type(theta):
-
-            raise TypeError(
-                "Class type not supported; str expected."
-            )
-
         if not re.fullmatch(
             "[0-9]+[d" + str(chr(176)) + "][0-5][0-9]'[0-5][0-9]([.][0-9]*)*''", theta
         ):
