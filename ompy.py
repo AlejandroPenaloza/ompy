@@ -306,8 +306,8 @@ def to_gradians(
     if from_sexagesimal:
         # Angle conversion from sexagesimal angle measurement (degrees, minutes and seconds).
         
-        if type(theta) != str and not re.fullmatch(
-            "[0-9]+[d" + str(chr(176)) + "][0-5][0-9]'[0-5][0-9].*[0-9]*''", theta
+        if type(theta) != str or not re.fullmatch(
+            "[0-9]+[d" + str(chr(176)) + "][0-5][0-9]'[0-5][0-9]([.][0-9]*)*''", theta
         ):
           
             raise TypeError(
@@ -331,7 +331,7 @@ def to_gradians(
         raise TypeError(
             "Angle " + str(theta) + 
             " class type not supported.'int' or 'float' expected. " + 
-            "If used sexagesimal system; pass it as True."
+            "If used sexagesimal system; pass from_sexagesimal parameter as True."
         )
 
     elif from_radians:
@@ -350,4 +350,4 @@ def to_gradians(
         # Angle conversion from decimal degrees.
 
         gradians = round(10 * theta / 9, 15)
-        return gradians 
+        return gradians
