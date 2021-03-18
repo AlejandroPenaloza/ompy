@@ -305,14 +305,14 @@ def to_gradians(
 
     if from_sexagesimal:
         # Angle conversion from sexagesimal angle measurement (degrees, minutes and seconds).
-        
-        if type(theta) != str or not re.fullmatch(
+
+        if not re.fullmatch(
             "[0-9]+[d" + str(chr(176)) + "][0-5][0-9]'[0-5][0-9]([.][0-9]*)*''", theta
         ):
-          
-            raise TypeError(
+            
+            raise ValueError(
                 "Angle " + str(theta) +  
-                " class type not supported; not matching correct format or out of numeric range. " + 
+                " not matching correct format or out of numeric range. " + 
                 "Requested numeric type and degrees, minutes, seconds pattern: D" +  
                 str(chr(176)) + "MM'SS'' or DdMM'SS''"
             )
@@ -350,4 +350,4 @@ def to_gradians(
         # Angle conversion from decimal degrees.
 
         gradians = round(10 * theta / 9, 15)
-        return gradians
+        return gradians 
