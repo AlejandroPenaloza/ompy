@@ -41,8 +41,8 @@ def to_dec_degrees(
     from_sexagesimal=False, 
     from_gradians=False, 
     from_turns=False
-    ):
-  
+):
+
     """
     It takes an angle given in the following units: degrees-minutes-seconds,
     radians, gradians and turns; and returns the angle converted in decimal degrees.
