@@ -306,7 +306,7 @@ def to_gradians(
                 "Class type not supported; 'str' angle required."
             )
 
-        elif not re.fullmatch(
+        if not re.fullmatch(
             "[0-9]+[d" + str(chr(176)) + "][0-5][0-9]'[0-5][0-9]([.][0-9]*)*''", theta
         ):
             
