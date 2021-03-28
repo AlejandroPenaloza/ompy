@@ -14,6 +14,7 @@ def are_bools(tuple_arg):
 
     """
     #### are_bool
+    
     - param: tuple_arg (tuple).
     - returns: True if all items in tuple_arg are booleans. False otherwise.
     """
