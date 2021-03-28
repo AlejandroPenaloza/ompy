@@ -303,7 +303,7 @@ def to_gradians(
 
         if type(theta) != str:
             raise TypeError(
-                "Class type not supported; 'str' angle required."
+                "Class type not supported; 'str' expected."
             )
 
         if not re.fullmatch(
