@@ -9,6 +9,7 @@ class DefVal:
     def __init__(self, value):
         self.value = value
 
+
 def are_bools(tuple_arg):
 
     """
@@ -100,10 +101,10 @@ def to_dec_degrees(
 
             separator = "d"
 
-        sexagesimal = theta.split(separator)
-        degrees = float(sexagesimal[0])
-        minutes = float(sexagesimal[1].split("'")[0])
-        seconds = float(sexagesimal[1].split("'")[1])
+        sexagesimal_ = theta.split(separator)
+        degrees = float(sexagesimal_[0])
+        minutes = float(sexagesimal_[1].split("'")[0])
+        seconds = float(sexagesimal_[1].split("'")[1])
         return round(degrees + (minutes/60) + (seconds/3600), 15)
 
     try:
@@ -197,11 +198,12 @@ def to_radians(
 
             separator = "d"
 
-        sexagesimal = theta.split(separator)
-        degrees = float(sexagesimal[0])
-        minutes = float(sexagesimal[1].split("'")[0])
-        seconds = float(sexagesimal[1].split("'")[1])
-        return round(degrees + (minutes/60) + (seconds/3600), 15)
+        sexagesimal_ = theta.split(separator)
+        degrees = float(sexagesimal_[0])
+        minutes = float(sexagesimal_[1].split("'")[0])
+        seconds = float(sexagesimal_[1].split("'")[1])
+        radians = round((degrees + (minutes / 60) + (seconds / 3600)) * math.pi / 180, 15)
+        return radians
 
     try:
 
@@ -220,17 +222,20 @@ def to_radians(
     if from_gradians:
         # Angle conversion from gradians.
         
-        return round(9 * theta / 10, 15)
+        radians = round(theta * math.pi / 200, 15)
+        return radians
 
     elif from_turns:
         # Angle conversion from turns.
 
-        return round(theta * 360, 15)
+        radians = round(theta * 2 * math.pi, 15)
+        return radians
 
     elif from_dec_degrees:
         # Angle conversion from decimal degrees.
 
-        return round(theta * math.pi / 180, 15)
+        radians = round(theta * math.pi / 180, 15)
+        return radians
 
     else:
         # No unit selected, raise ValueError.
@@ -290,7 +295,7 @@ def to_gradians(
         )
 
     passed_unit_args = inspect.stack()[1].code_context[0]
-    passed_True_unit_args = re.findall("=True", passed_unit_args)
+    passed_True_unit_args = re.findall("True", passed_unit_args)
     print(passed_True_unit_args)
 
     if len(passed_True_unit_args) >= 2:
@@ -320,10 +325,10 @@ def to_gradians(
             
         separator = re.findall("[0-9]+[d"+str(chr(176))+"]", theta)[0][-1]
 
-        sexagesimal = theta.split(separator)
-        degrees = float(sexagesimal[0])
-        minutes = float(sexagesimal[1].split("'")[0])
-        seconds = float(sexagesimal[1].split("'")[1])
+        sexagesimal_ = theta.split(separator)
+        degrees = float(sexagesimal_[0])
+        minutes = float(sexagesimal_[1].split("'")[0])
+        seconds = float(sexagesimal_[1].split("'")[1])
         gradians = round(10 * (degrees + (minutes/60) + (seconds/3600)) / 9, 15)
         return gradians
 
@@ -412,7 +417,7 @@ def to_turns(
     
     passed_unit_args = inspect.stack()[1].code_context[0]
     print(passed_unit_args)
-    passed_True_unit_args = re.findall("=True", passed_unit_args)
+    passed_True_unit_args = re.findall("True", passed_unit_args)
     print(passed_True_unit_args)
 
     if len(passed_True_unit_args) >= 2:
@@ -442,10 +447,10 @@ def to_turns(
             
         separator = re.findall("[0-9]+[d"+str(chr(176))+"]", theta)[0][-1]
 
-        sexagesimal = theta.split(separator)
-        degrees = float(sexagesimal[0])
-        minutes = float(sexagesimal[1].split("'")[0])
-        seconds = float(sexagesimal[1].split("'")[1])
+        sexagesimal_ = theta.split(separator)
+        degrees = float(sexagesimal_[0])
+        minutes = float(sexagesimal_[1].split("'")[0])
+        seconds = float(sexagesimal_[1].split("'")[1])
         turns = round((degrees + (minutes/60) + (seconds/3600)) / 360, 15)
         return turns
 
