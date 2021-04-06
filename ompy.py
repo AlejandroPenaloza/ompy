@@ -102,13 +102,15 @@ def to_dec_degrees(
     if from_sexagesimal:
         # Angle conversion from sexagesimal angle measurement (degrees, minutes and seconds).
 
+        sexagesimal_pattern = f"[0-9]+[d{chr(176)}][0-5]?[0-9]'[0-5]?[0-9]([.][0-9]*)*''"
+
         if type(theta) != str:
             raise TypeError(
                 "Class type not supported; string expected."
             )
 
         if not re.fullmatch(
-            "[0-9]+[d" + str(chr(176)) + "][0-5][0-9]'[0-5][0-9]([.][0-9]*)*''", theta
+            sexagesimal_pattern, theta
         ):
             
             raise ValueError(
@@ -118,7 +120,7 @@ def to_dec_degrees(
             )    
 
             
-        separator = re.findall("[0-9]+[d"+str(chr(176))+"]", theta)[0][-1]
+        separator = re.findall(f"[0-9]+[d{chr(176)}]", theta)[0][-1]
 
         sexagesimal_ = theta.split(separator)
         degrees = float(sexagesimal_[0])
@@ -223,13 +225,15 @@ def to_radians(
     if from_sexagesimal:
         # Angle conversion from sexagesimal angle measurement (degrees, minutes and seconds).
 
+        sexagesimal_pattern = f"[0-9]+[d{chr(176)}][0-5]?[0-9]'[0-5]?[0-9]([.][0-9]*)*''"
+
         if type(theta) != str:
             raise TypeError(
                 "Class type not supported; string expected."
             )
 
         if not re.fullmatch(
-            "[0-9]+[d" + str(chr(176)) + "][0-5][0-9]'[0-5][0-9]([.][0-9]*)*''", theta
+            sexagesimal_pattern, theta
         ):
             
             raise ValueError(
@@ -239,7 +243,7 @@ def to_radians(
             )    
 
             
-        separator = re.findall("[0-9]+[d"+str(chr(176))+"]", theta)[0][-1]
+        separator = re.findall(f"[0-9]+[d{chr(176)}]", theta)[0][-1]
 
         sexagesimal_ = theta.split(separator)
         degrees = float(sexagesimal_[0])
@@ -345,13 +349,15 @@ def to_gradians(
     if from_sexagesimal:
         # Angle conversion from sexagesimal angle measurement (degrees, minutes and seconds).
 
+        sexagesimal_pattern = f"[0-9]+[d{chr(176)}][0-5]?[0-9]'[0-5]?[0-9]([.][0-9]*)*''"
+
         if type(theta) != str:
             raise TypeError(
                 "Class type not supported; 'str' expected."
             )
 
         if not re.fullmatch(
-            "[0-9]+[d" + str(chr(176)) + "][0-5][0-9]'[0-5][0-9]([.][0-9]*)*''", theta
+            sexagesimal_pattern, theta
         ):
             
             raise ValueError(
@@ -361,7 +367,7 @@ def to_gradians(
                 str(chr(176)) + "MM'SS'' or DdMM'SS''"
             )
             
-        separator = re.findall("[0-9]+[d"+str(chr(176))+"]", theta)[0][-1]
+        separator = re.findall(f"[0-9]+[d{chr(176)}]", theta)[0][-1]
 
         sexagesimal_ = theta.split(separator)
         degrees = float(sexagesimal_[0])
@@ -465,13 +471,15 @@ def to_turns(
     if from_sexagesimal:
         # Angle conversion from sexagesimal angle measurement (degrees, minutes and seconds).
 
+        sexagesimal_pattern = f"[0-9]+[d{chr(176)}][0-5]?[0-9]'[0-5]?[0-9]([.][0-9]*)*''"
+
         if type(theta) != str:
             raise TypeError(
                 "Class type not supported; string expected."
             )
 
         if not re.fullmatch(
-            "[0-9]+[d" + str(chr(176)) + "][0-5][0-9]'[0-5][0-9]([.][0-9]*)*''", theta
+            sexagesimal_pattern, theta
         ):
             
             raise ValueError(
@@ -480,8 +488,7 @@ def to_turns(
                 f"D{chr(176)}MM'SS'' or DdMM'SS''"
             )    
 
-            
-        separator = re.findall("[0-9]+[d"+str(chr(176))+"]", theta)[0][-1]
+        separator = re.findall(f"[0-9]+[d{chr(176)}]", theta)[0][-1]   
 
         sexagesimal_ = theta.split(separator)
         degrees = float(sexagesimal_[0])
