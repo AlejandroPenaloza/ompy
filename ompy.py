@@ -1,13 +1,8 @@
+import sympy
 import math
 import re
 import traceback
 import inspect
-
-
-class DefVal:
-
-    def __init__(self, value):
-        self.value = value
 
 
 def are_bools(tuple_arg):
@@ -44,15 +39,8 @@ def to_dec_degrees(
     from_turns=False,
     from_radians=True
 ):
+
   
-    """
-    It takes an angle given in the following units: degrees-minutes-seconds,
-    radians, gradians and turns; and returns the angle converted in decimal degrees.
-    Angles must be provided as 'int' or 'float', denoting the magnitude with 
-    no unit, except for degrees-minutes-seconds, which is to be 'str' pattern 
-    DdMM'SS'' or D°MM'SS''.
-    """
-    
     """
     Converts the provided angle into decimal degrees.
     
@@ -64,146 +52,25 @@ def to_dec_degrees(
         respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be any-digits number 
         (under supported range), MM (whole num) and SS (could be decimal) is a 2-digit number lower than 60.
 
-    from_sexagesimal : bool, default False.
+    from_sexagesimal : bool; default False.
         Select it (pass True) if current unit to convert from is degrees, minutes 
         and seconds (sexagesimal measurement system).
 
-    from_gradians    : bool, default False.
+    from_gradians    : bool; default False.
         Select it (pass True) if current unit to convert from is gradians.
 
-    from_turns       : bool, default False.
+    from_turns       : bool; default False.
         Select it (pass True) if current angle to convert from is number of turns/revolutions.
 
-    from_radians     : bool, default True.
+    from_radians     : bool; default True.
         Select it (pass True) if current unit to convert from is radians.
 
 
     Returns
     ----------
-    float, original angle now in decimal degrees.
+    float; original angle now in decimal degrees.
     """
 
-    
-    unit_arguments = [
-        False if type(argument) == bool else True for argument in list(locals().values())[1:]
-                      ]
-    
-    if any(unit_arguments):
-        
-        raise TypeError(
-            "Class type not supported; use only 'True' or 'False' as arguments for current angle units to convert."
-        )
-
-    arguments_False_by_default = list(locals().values())[2:5]
-
-    if any(arguments_False_by_default):
-        # checking on how many units were passed as True.
-
-        try:
-
-            assert arguments_False_by_default.count(True) == 1
-
-        except AssertionError:
-
-            raise TypeError(
-                "Unit error; more than one unit requested for converting.\nOnly one supported.")
-    
-    if from_sexagesimal:
-        # Angle conversion from degrees, minutes and seconds.
-
-        try:
-
-            assert type(theta) == str and re.fullmatch(
-                "[0-9]+[d"+str(chr(176))+"][0-5][0-9]'[0-5][0-9].*[0-9]*''", theta)
-
-        except AssertionError:
-
-            raise TypeError(
-                "Angle ", theta, 
-                " class type not supported; not matching correct format or out of numeric range.",
-                "Requested numeric type and degrees, minutes, seconds pattern(D", 
-                str(chr(176)), "MM'SS'') or (DdMM'SS''"
-                )
-            
-        if str(chr(176)) in theta:
-
-            separator = str(chr(176))
-
-        else:
-
-            separator = "d"
-
-        sexagesimal_ = theta.split(separator)
-        degrees = float(sexagesimal_[0])
-        minutes = float(sexagesimal_[1].split("'")[0])
-        seconds = float(sexagesimal_[1].split("'")[1])
-        return round(degrees + (minutes/60) + (seconds/3600), 13)
-
-    try:
-
-        assert type(theta) == int or type(theta) == float
-
-    except AssertionError:
-
-        raise TypeError(
-            "Angle", theta, "class type not supported.\n'int' or 'float' expected."
-        )
-
-    theta = float(theta)
-
-    if from_gradians:
-        # Angle conversion from gradians
-
-        return 9 * theta / 10
-
-    if from_turns:
-        # Angle conversion from turns.
-
-        return theta * 360
-
-    else:
-        # Angle conversion from radians.
-
-        return theta * 180 / math.pi
-
-
-def to_radians(
-    theta,
-    from_sexagesimal=False,  
-    from_gradians=False,
-    from_turns=False,
-    from_dec_degrees=True
-):
-    
-    """
-    Converts the provided angle into radians.
-    
-    
-    Parameters
-    ----------
-    theta            : int, float or str; required. 
-        Angle to convert. If provided as str, current unit has to be sexagesimal system as 
-        respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be any-digits number 
-        (under supported range), MM (whole num) and SS (could be decimal) is a 2-digit number lower than 60.
-
-    from_sexagesimal : bool, default False.
-        Select it (pass True) if current unit to convert from is degrees, minutes 
-        and seconds (sexagesimal measurement system).
-
-    from_gradians    : bool, default False.
-        Select it (pass True) if current unit to convert from is gradians.
-
-    from_turns       : bool, default False.
-        Select it (pass True) if current angle to convert from is number of turns/revolutions.
-
-    from_dec_degrees : bool, default True.
-        Select it (pass True) if current unit to convert from is decimal degrees.
-
-
-    Returns
-    ----------
-    float, original angle now in radians.
-    """
 
     unit_arguments = tuple(locals().values())[1:]
     
@@ -215,22 +82,18 @@ def to_radians(
             "arguments fur current angle units to convert."
         )
 
-    
-    unit_arguments = tuple(locals().values())[1:]
+    # Checking whether all unit arguments are False,
+    # meaning 'from_dec_degrees' was passed as False.
+    if not any(unit_arguments):
 
-    # Checking if 'from_dec_degrees' was passed when function called or is default value.
-    if from_dec_degrees is to_radians.__defaults__[0]:
-        unit_arguments = unit_arguments[1:]
-        #from_dec_degrees = from_dec_degrees.value
-
-    if not are_bools(unit_arguments):
-
-        raise TypeError(
-            "Class type not supported; use only 'True' or 'False' as " + 
-            "arguments for current angle units to convert."
+        raise ValueError(
+            "No angle unit was selected; all units are False."
         )
+    
+    passed_unit_args = inspect.stack()[1].code_context[0]
+    passed_True_unit_args = re.findall("True", passed_unit_args)
 
-    if unit_arguments.count(True) >= 2:
+    if len(passed_True_unit_args) >= 2:
 
         raise ValueError(
             "Unit error; more than one unit requested for converting.\nOnly one supported."
@@ -239,27 +102,144 @@ def to_radians(
     if from_sexagesimal:
         # Angle conversion from sexagesimal angle measurement (degrees, minutes and seconds).
 
-        try:
-
-            assert type(theta) == str and re.fullmatch(
-                "[0-9]+[d"+str(chr(176))+"][0-5][0-9]'[0-5][0-9].*[0-9]*''", theta)
-
-        except AssertionError:
-
+        if type(theta) != str:
             raise TypeError(
-                "Angle " + str(theta) +  
-                " class type not supported; not matching correct format or out of numeric range. " + 
-                "Requested numeric type and degrees, minutes, seconds pattern: D" +  
-                str(chr(176)) + "MM'SS'' or DdMM'SS''"
-                )
+                "Class type not supported; string expected."
+            )
+
+        if not re.fullmatch(
+            "[0-9]+[d" + str(chr(176)) + "][0-5][0-9]'[0-5][0-9]([.][0-9]*)*''", theta
+        ):
             
-        if str(chr(176)) in theta:
+            raise ValueError(
+                f"Angle {theta} not matching correct format or out of numeric range. " 
+                f"Requested numeric type and degrees, minutes, seconds pattern: " 
+                f"D{chr(176)}MM'SS'' or DdMM'SS''"
+            )    
 
-            separator = str(chr(176))
+            
+        separator = re.findall("[0-9]+[d"+str(chr(176))+"]", theta)[0][-1]
 
-        else:
+        sexagesimal_ = theta.split(separator)
+        degrees = float(sexagesimal_[0])
+        minutes = float(sexagesimal_[1].split("'")[0])
+        seconds = float(sexagesimal_[1].split("'")[1])
+        dec_degrees = round(degrees + (minutes/60) + (seconds/3600), 13)
+        return dec_degrees
 
-            separator = "d"
+    elif type(theta) not in (int, float):
+        
+        raise TypeError(
+            f"Class type not supported; {theta} int or float expected. "\
+            f"If used sexagesimal system, pass from_sexagesimal parameter as True."
+        )
+
+    elif from_gradians:
+        # Angle conversion from gradians.
+
+        dec_degrees = round(theta * 9 / 10, 13)
+        return dec_degrees
+
+    elif from_turns:
+        # Angle conversion from decimal degrees.
+
+        dec_degrees = round(theta * 360, 13)
+        return dec_degrees
+
+    else:
+        # Angle conversion from radians.
+        
+        dec_degrees = round(theta * 180 / math.pi, 13)
+        return dec_degrees
+
+
+def to_radians(
+    theta,
+    from_sexagesimal=False,  
+    from_gradians=False,
+    from_turns=False,
+    from_dec_degrees=True
+):
+    
+
+    """
+    Converts the provided angle into radians.
+    
+    
+    Parameters
+    ----------
+    theta            : int, float or str; required. 
+        Angle to convert. If provided as str, current unit has to be sexagesimal system as 
+        respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be any-digits number 
+        (under supported range), MM (whole num) and SS (could be decimal) is a 2-digit number lower than 60.
+
+    from_sexagesimal : bool; default False.
+        Select it (pass True) if current unit to convert from is degrees, minutes 
+        and seconds (sexagesimal measurement system).
+
+    from_gradians    : bool; default False.
+        Select it (pass True) if current unit to convert from is gradians.
+
+    from_turns       : bool; default False.
+        Select it (pass True) if current angle to convert from is number of turns/revolutions.
+
+    from_dec_degrees : bool; default True.
+        Select it (pass True) if current unit to convert from is decimal degrees.
+
+
+    Returns
+    ----------
+    float; original angle now in radians.
+    """
+
+
+    unit_arguments = tuple(locals().values())[1:]
+    
+    # Checking whether unit arguments are booleans.
+    if not are_bools(unit_arguments): 
+
+        raise TypeError(
+            "Class type not supported; use only 'True' or 'False' as " + 
+            "arguments fur current angle units to convert."
+        )
+
+    # Checking whether all unit arguments are False,
+    # meaning 'from_dec_degrees' was passed as False.
+    if not any(unit_arguments):
+
+        raise ValueError(
+            "No angle unit was selected; all units are False."
+        )
+    
+    passed_unit_args = inspect.stack()[1].code_context[0]
+    passed_True_unit_args = re.findall("True", passed_unit_args)
+
+    if len(passed_True_unit_args) >= 2:
+
+        raise ValueError(
+            "Unit error; more than one unit requested for converting.\nOnly one supported."
+        )
+    
+    if from_sexagesimal:
+        # Angle conversion from sexagesimal angle measurement (degrees, minutes and seconds).
+
+        if type(theta) != str:
+            raise TypeError(
+                "Class type not supported; string expected."
+            )
+
+        if not re.fullmatch(
+            "[0-9]+[d" + str(chr(176)) + "][0-5][0-9]'[0-5][0-9]([.][0-9]*)*''", theta
+        ):
+            
+            raise ValueError(
+                f"Angle {theta} not matching correct format or out of numeric range. " 
+                f"Requested numeric type and degrees, minutes, seconds pattern: " 
+                f"D{chr(176)}MM'SS'' or DdMM'SS''"
+            )    
+
+            
+        separator = re.findall("[0-9]+[d"+str(chr(176))+"]", theta)[0][-1]
 
         sexagesimal_ = theta.split(separator)
         degrees = float(sexagesimal_[0])
@@ -268,44 +248,30 @@ def to_radians(
         radians = round((degrees + (minutes / 60) + (seconds / 3600)) * math.pi / 180, 13)
         return radians
 
-    try:
-
-        assert type(theta) == int or type(theta) == float
-
-    except AssertionError:
-
+    elif type(theta) not in (int, float):
+        
         raise TypeError(
-            "Angle " + str(theta) + 
-            " class type not supported.'int' or 'float' expected. " + 
-            "If used degrees, minutes, seconds unit; set it as True."
+            f"Class type not supported; {theta} int or float expected. "\
+            f"If used sexagesimal system, pass from_sexagesimal parameter as True."
         )
 
-    theta = float(theta)
-
-    if from_gradians:
+    elif from_gradians:
         # Angle conversion from gradians.
-        
+
         radians = round(theta * math.pi / 200, 13)
         return radians
 
     elif from_turns:
-        # Angle conversion from turns.
+        # Angle conversion from turns / revolutions.
 
-        radians = round(theta * 2 * math.pi, 13)
-        return radians
-
-    elif from_dec_degrees:
-        # Angle conversion from decimal degrees.
-
-        radians = round(theta * math.pi / 180, 13)
+        radians = round(theta * math.pi * 2, 13)
         return radians
 
     else:
-        # No unit selected, raise ValueError.
-
-        raise ValueError(
-            "No angle unit was selected; all units are False."
-        )
+        # Angle conversion from decimal degrees.
+        
+        radians = round(theta * math.pi / 180, 13)
+        return radians
 
 
 def to_gradians(
@@ -315,6 +281,7 @@ def to_gradians(
     from_turns=False,
     from_radians=True
 ):
+
 
     """
     Converts the provided angle into centesimal measurement system used in gradians.
@@ -327,24 +294,25 @@ def to_gradians(
         respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be any-digits number 
         (under supported range), MM (whole num) and SS (could be decimal) is a 2-digit number lower than 60.
 
-    from_dec_degrees : bool, default False.
+    from_dec_degrees : bool; default False.
         Select it (pass True) if current unit from which to convert is decimal degrees.
 
-    from_sexagesimal : bool, default False.
+    from_sexagesimal : bool; default False.
         Select it (pass True) if current unit from which to convert is degrees, minutes 
         and seconds (sexagesimal measurement system).
 
-    from_turns       : bool, default False.
+    from_turns       : bool; default False.
         Select it (pass True) if current unit from which to convert is number of turns / revolutions.
 
-    from_radians     : bool, default True.
+    from_radians     : bool; default True.
         Select it (pass True) if current unit from which to convert is radians.
 
 
     Returns
     ----------
-    float, original angle now in gradians.
+    float; original angle now in gradians.
     """
+
 
     unit_arguments = tuple(locals().values())[1:]
     
@@ -448,23 +416,23 @@ def to_turns(
         respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be any-digits number 
         (under supported range), MM (whole num) and SS (could be decimal) is a 2-digit number lower than 60.
 
-    from_dec_degrees : bool, default False.
+    from_dec_degrees : bool; default False.
         Select it (pass True) if current unit to convert from is decimal degrees.
 
-    from_sexagesimal : bool, default False.
+    from_sexagesimal : bool; default False.
         Select it (pass True) if current unit to convert from is degrees, minutes 
         and seconds (sexagesimal measurement system).
 
-    from_gradians    : bool, default False.
+    from_gradians    : bool; default False.
         Select it (pass True) if current unit to convert from is gradians.
 
-    from_radians     : bool, default True.
+    from_radians     : bool; default True.
         Select it (pass True) if current unit to convert from is radians.
 
 
     Returns
     ----------
-    float, original angle now in number of turns/revolutions.
+    float; original angle now in number of turns/revolutions.
     """
 
     unit_arguments = tuple(locals().values())[1:]
@@ -557,6 +525,7 @@ def to_sexagesimal(
     from_radians=True
 ):
 
+
     """
     Converts the provided angle into the sexagesimal system, where the angle is
     composed by the degrees, minutes and seconds magnitudes; following the pattern 
@@ -568,16 +537,16 @@ def to_sexagesimal(
     theta            : int or float; required. 
         Angle to convert.
 
-    from_dec_degrees : bool, default False.
+    from_dec_degrees : bool; default False.
         Select it (pass True) if current unit to convert from is decimal degrees.
 
-    from_gradians    : bool, default False.
+    from_gradians    : bool; default False.
         Select it (pass True) if current unit to convert from is gradians.
 
-    from_turns       : bool, default False.
+    from_turns       : bool; default False.
         Select it (pass True) if current unit to convert from is turns/revolutions.
     
-    from_radians     : bool, default True.
+    from_radians     : bool; default True.
         Select it (pass True) if current unit to convert from is radians.
 
 
@@ -585,14 +554,14 @@ def to_sexagesimal(
     ----------
     Original angle now in degrees, minutes and seconds (sexagesimal system).
 
-    dictionary; consisting in two key-value pairs:
-        dict["str"]  : str; converted angle following the pattern D°MM'SS'';
-        dict["tuple"]: tuple; converted angle separated by its parts,
-        (degrees, minutes, seconds) or:
-            tuple[0] : float; angle degrees;
-            tuple[1] : float; angle minutes;
-            tuple[2] : float; angle seconds.
+    dictionary; consisting on the following key-value pairs:
+        dict[str]      : str; converted angle following the pattern D°MM'SS''.
+        dict[tuple]    : tuple; converted angle separated by its parts, (degrees, minutes, seconds).
+        dict["degrees"]: int; degrees part from converted angle.
+        dict["minutes"]: int; minutes part from converted angle.
+        dict["seconds"]: float; seconds part from converted angle.
     """
+
 
     unit_arguments = tuple(locals().values())[1:]
     
@@ -648,11 +617,10 @@ def to_sexagesimal(
         
         #theta = to_dec_degrees(theta)
         theta = round(theta * 180 / math.pi, 13)
-
     
     degrees = int(theta)
     minutes = (theta - degrees) * 60
-    seconds = (minutes - int(minutes)) * 60
+    seconds = round((minutes - int(minutes)) * 60, 12)
     minutes = int(minutes)
 
     sexagesimal_str = f"{degrees}{chr(176)}{minutes}'{seconds}''"
@@ -665,7 +633,10 @@ def to_sexagesimal(
 
     sexagesimal = {
         str: sexagesimal_str,
-        tuple: sexagesimal_tuple
+        tuple: sexagesimal_tuple,
+        "degrees": degrees,
+        "minutes": minutes,
+        "seconds": seconds
     }
 
     return sexagesimal
