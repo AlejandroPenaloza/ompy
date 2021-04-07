@@ -1,8 +1,11 @@
-import sympy
 import math
 import re
+import numpy as np
+import sympy
 import traceback
 import inspect
+from decimal import Decimal
+from collections import defaultdict
 
 
 def are_bools(tuple_arg):
@@ -50,7 +53,7 @@ def to_dec_degrees(
     theta            : int, float or str; required. 
         Angle to convert. If provided as str, current unit has to be sexagesimal system as 
         respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be any-digits number 
-        (under supported range), MM (whole num) and SS (could be decimal) is a 2-digit number lower than 60.
+        (under supported range), MM (whole num) and SS (could be decimal) are a 1-2 digit number lower than 60.
 
     from_sexagesimal : bool; default False.
         Select it (pass True) if current unit to convert from is degrees, minutes 
@@ -173,7 +176,7 @@ def to_radians(
     theta            : int, float or str; required. 
         Angle to convert. If provided as str, current unit has to be sexagesimal system as 
         respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be any-digits number 
-        (under supported range), MM (whole num) and SS (could be decimal) is a 2-digit number lower than 60.
+        (under supported range), MM (whole num) and SS (could be decimal) are a 1-2 digit number lower than 60.
 
     from_sexagesimal : bool; default False.
         Select it (pass True) if current unit to convert from is degrees, minutes 
@@ -296,7 +299,7 @@ def to_gradians(
     theta            : int, float or str; required. 
         Angle to convert. If provided as str, current unit has to be sexagesimal system as 
         respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be any-digits number 
-        (under supported range), MM (whole num) and SS (could be decimal) is a 2-digit number lower than 60.
+        (under supported range), MM (whole num) and SS (could be decimal) are a 1-2 digit number lower than 60.
 
     from_dec_degrees : bool; default False.
         Select it (pass True) if current unit from which to convert is decimal degrees.
@@ -420,7 +423,7 @@ def to_turns(
     theta            : int, float or str; required. 
         Angle to convert. If provided as str, current unit has to be sexagesimal system as 
         respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be any-digits number 
-        (under supported range), MM (whole num) and SS (could be decimal) is a 2-digit number lower than 60.
+        (under supported range), MM (whole num) and SS (could be decimal) are a 1-2 digit number lower than 60.
 
     from_dec_degrees : bool; default False.
         Select it (pass True) if current unit to convert from is decimal degrees.
@@ -536,7 +539,7 @@ def to_sexagesimal(
     """
     Converts the provided angle into the sexagesimal system, where the angle is
     composed by the degrees, minutes and seconds magnitudes; following the pattern 
-    D°MM'SS'' (D, MM, SS are the magnitudes; MM and SS are 2-digit numbers lower than 60).
+    D°MM'SS'' (D, MM, SS are the magnitudes; MM and SS are 1-2 digit numbers lower than 60).
 
     
     Parameters
@@ -561,7 +564,7 @@ def to_sexagesimal(
     ----------
     Original angle now in degrees, minutes and seconds (sexagesimal system).
 
-    dictionary; consisting on the following key-value pairs:
+    defaultdict; consisting on the following key-value pairs:
         dict[str]      : str; converted angle following the pattern D°MM'SS''.
         dict[tuple]    : tuple; converted angle separated by its parts, (degrees, minutes, seconds).
         dict["degrees"]: int; degrees part from converted angle.
@@ -638,12 +641,18 @@ def to_sexagesimal(
         seconds,
     )
 
-    sexagesimal = {
-        str: sexagesimal_str,
-        tuple: sexagesimal_tuple,
-        "degrees": degrees,
-        "minutes": minutes,
-        "seconds": seconds
-    }
+    KeyError_msg = "Key unavailable; only sexagesimal features str, tuple, 'degrees', 'minutes' and 'seconds' expected."
 
+
+    def sexagesimal_default_factory(): 
+
+        raise KeyError(KeyError_msg)
+
+
+    sexagesimal = defaultdict(sexagesimal_default_factory)
+    sexagesimal[str] = sexagesimal_str
+    sexagesimal[tuple] = sexagesimal_tuple
+    sexagesimal["degrees"] = degrees
+    sexagesimal["minutes"] = minutes
+    sexagesimal["seconds"] = seconds
     return sexagesimal
