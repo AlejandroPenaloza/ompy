@@ -7,6 +7,8 @@ import inspect
 from decimal import Decimal
 from collections import defaultdict
 
+import .exceptions
+
 
 def are_bools(tuple_arg):
 
