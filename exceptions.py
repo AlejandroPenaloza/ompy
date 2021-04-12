@@ -11,5 +11,9 @@ class UnitError(Exception):
         super().__init__(self.message)
 
 
-class SexagesimalError(Exception):
+class SexagesimalError(UnitError):
+    pass
+
+
+class SexagesimalFeatureError(SexagesimalError):
     pass
