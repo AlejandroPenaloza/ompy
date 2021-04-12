@@ -7,7 +7,7 @@ import inspect
 from decimal import Decimal
 from collections import defaultdict
 
-import .exceptions
+from .exceptions import SexagesimalFeatureError
 
 
 def are_bools(tuple_arg):
@@ -643,12 +643,12 @@ def to_sexagesimal(
         seconds,
     )
 
-    KeyError_msg = "Key unavailable; only sexagesimal features str, tuple, 'degrees', 'minutes' and 'seconds' expected."
+    SexagesimalFeatureError_msg = "Key unavailable; only sexagesimal unit features str, tuple, 'degrees', 'minutes' and 'seconds' expected."
 
 
     def sexagesimal_default_factory(): 
 
-        raise KeyError(KeyError_msg)
+        raise SexagesimalFeatureError(SexagesimalFeatureError_msg)
 
 
     sexagesimal = defaultdict(sexagesimal_default_factory)
