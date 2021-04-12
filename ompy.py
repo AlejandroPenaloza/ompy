@@ -643,13 +643,13 @@ def to_sexagesimal(
         seconds,
     )
 
-    SexagesimalFeatureError_msg = "Key unavailable; only sexagesimal unit features str, tuple, 'degrees', 'minutes' and 'seconds' expected."
+    SexagesimalFeatureError_msg = \
+        "Key unavailable; only sexagesimal unit features str, tuple, 'degrees', 'minutes' and 'seconds' expected."
 
 
     def sexagesimal_default_factory(): 
 
         raise SexagesimalFeatureError(SexagesimalFeatureError_msg)
-
 
     sexagesimal = defaultdict(sexagesimal_default_factory)
     sexagesimal[str] = sexagesimal_str
