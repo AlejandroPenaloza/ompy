@@ -5,9 +5,9 @@ import sympy
 import traceback
 import inspect
 from decimal import Decimal
-from collections import defaultdict
+from collections import namedtuple
 
-from .exceptions import SexagesimalFeatureError
+import .exceptions
 
 
 def are_bools(tuple_arg):
@@ -564,14 +564,14 @@ def to_sexagesimal(
 
     Returns
     ----------
-    Original angle now in degrees, minutes and seconds (sexagesimal system).
+    Sexagesimal angle features (angle as str and its parts according
+    to the sexagesimal system format) from the original angle.
 
-    defaultdict; consisting on the following key-value pairs:
-        dict[str]      : str; converted angle following the pattern D°MM'SS''.
-        dict[tuple]    : tuple; converted angle separated by its parts, (degrees, minutes, seconds).
-        dict["degrees"]: int; degrees part from converted angle.
-        dict["minutes"]: int; minutes part from converted angle.
-        dict["seconds"]: float; seconds part from converted angle.
+    'sexagesimal angle features', tuple-like; consisting on the following fieldnames and values:
+        "str_"      : str; converted angle following the pattern "D°MM'SS''".
+        "degrees"   : int; degrees part from converted angle.
+        "minutes"   : int; minutes part from converted angle.
+        "seconds"   : float; seconds part from converted angle.
     """
 
 
@@ -637,24 +637,20 @@ def to_sexagesimal(
 
     sexagesimal_str = f"{degrees}{chr(176)}{minutes}'{seconds}''"
 
-    sexagesimal_tuple = (
-        degrees,
-        minutes,
-        seconds,
+    sexagesimal_angle_features = namedtuple(
+        "sexagesimal_angle_features",
+        f"str_ "
+        f"degrees "
+        f"minutes "
+        f"seconds",
+        module="to_sexagesimal"
     )
 
-    SexagesimalFeatureError_msg = \
-        "Key unavailable; only sexagesimal unit features str, tuple, 'degrees', 'minutes' and 'seconds' expected."
+    sexagesimal = sexagesimal_angle_features(
+        sexagesimal_str,
+        degrees,
+        minutes,
+        seconds
+    )
 
-
-    def sexagesimal_default_factory(): 
-
-        raise SexagesimalFeatureError(SexagesimalFeatureError_msg)
-
-    sexagesimal = defaultdict(sexagesimal_default_factory)
-    sexagesimal[str] = sexagesimal_str
-    sexagesimal[tuple] = sexagesimal_tuple
-    sexagesimal["degrees"] = degrees
-    sexagesimal["minutes"] = minutes
-    sexagesimal["seconds"] = seconds
     return sexagesimal
