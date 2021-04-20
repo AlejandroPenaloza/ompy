@@ -7,7 +7,7 @@ import inspect
 from fractions import Fraction
 from collections import defaultdict, namedtuple
 
-import .exceptions
+import exceptions
 
 
 def are_bools(tuple_arg):
@@ -224,7 +224,7 @@ def to_radians(
     if len(passed_True_unit_args) >= 2:
 
         raise ValueError(
-            "Unit error; more than one unit requested for converting.\nOnly one supported."
+            "Unit error; more than one unit requested for converting. Only one supported."
         )
     
     if from_sexagesimal:
@@ -260,7 +260,7 @@ def to_radians(
     elif type(theta) not in (int, float):
         
         raise TypeError(
-            f"Class type not supported; {theta} int or float expected. "
+            f"Class type not supported; {theta} int or float expected. "\
             f"If used sexagesimal system, pass from_sexagesimal parameter as True."
         )
 
@@ -343,12 +343,11 @@ def to_gradians(
 
     passed_unit_args = inspect.stack()[1].code_context[0]
     passed_True_unit_args = re.findall("True", passed_unit_args)
-    print(passed_True_unit_args)
 
     if len(passed_True_unit_args) >= 2:
 
         raise ValueError(
-            "Unit error; more than one unit requested for converting. \nOnly one supported."
+            "Unit error; more than one unit requested for converting. Only one supported."
         )
 
     if from_sexagesimal:
@@ -470,7 +469,7 @@ def to_turns(
     if len(passed_True_unit_args) >= 2:
 
         raise ValueError(
-            "Unit error; more than one unit requested for converting.\nOnly one supported."
+            "Unit error; more than one unit requested for converting. Only one supported."
         )
     
     if from_sexagesimal:
@@ -581,8 +580,8 @@ def to_sexagesimal(
     if not are_bools(unit_arguments): 
 
         raise TypeError(
-            "Class type not supported; use only 'True' or 'False' as " + 
-            "arguments for current angle units to convert."
+            f"Class type not supported; use only 'True' or 'False' as "
+            f"arguments for current angle units to convert."
         )
 
     # Checking whether all unit arguments are False,
@@ -599,41 +598,47 @@ def to_sexagesimal(
     if len(passed_True_unit_args) >= 2:
 
         raise ValueError(
-            "Unit error; more than one unit requested for converting.\nOnly one supported."
+            "Unit error; more than one unit requested for converting. Only one supported."
         )
 
     if type(theta) not in (int, float):
         
         raise TypeError(
-            f"Class type not supported; {theta} int or float expected. "
+            f"Class type not supported; {theta} int or float expected."
         )
 
         
     if from_dec_degrees:
         # Angle conversion from decimal degrees.
-        pass
+        theta = Fraction(str(theta))
 
     elif from_gradians:
         # Angle conversion from gradians.
 
-        theta = round(theta * 0.9, 13)
-        return turns
+        theta = str(theta * 0.9)
+        theta = Fraction(theta)
 
     elif from_turns:
         # Angle conversion from turns.  
 
-        theta = round(theta * 360, 13)  
+        theta = str(theta * 360)
+        theta = Fraction(theta)  
 
     else:
         # Angle conversion from radians.
-        
-        #theta = to_dec_degrees(theta)
-        theta = round(theta * 180 / math.pi, 13)
+      
+        theta = Fraction(str(theta))*180 / Fraction(str(math.pi))
     
-    theta = round(theta, 10)
+    if theta < 0:
+        sign = "-"
+    else:
+        sign = ""
+
+    theta = abs(theta)
     degrees = int(theta)
     minutes = (theta - degrees) * 60
-    seconds = round((minutes - int(minutes)) * 60, 10)
+    degrees = int(f"{sign}{degrees}")
+    seconds = round(float((minutes - int(minutes)) * 60), 12)
     minutes = int(minutes)
 
     sexagesimal_str = f"{degrees}{chr(176)}{minutes}'{seconds}''"
@@ -644,7 +649,7 @@ def to_sexagesimal(
         f"degrees "
         f"minutes "
         f"seconds",
-        module="to_sexagesimal"
+        module="sexagesimal"
     )
     
     sexagesimal = sexagesimal_angle_features(
