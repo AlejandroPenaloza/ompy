@@ -644,7 +644,7 @@ def to_sexagesimal(
     sexagesimal_str = f"{degrees}{chr(176)}{minutes}'{seconds}''"
 
     sexagesimal_angle_features = namedtuple(
-        "sexagesimal_angle_features",
+        "SexagesimalAngle",
         f"str_ "
         f"degrees "
         f"minutes "
