@@ -1,9 +1,9 @@
-import math
 import re
 import numpy as np
 import sympy
 import traceback
 import inspect
+from math import *
 from fractions import Fraction
 from collections import defaultdict, namedtuple
 
@@ -156,7 +156,7 @@ def to_dec_degrees(
     else:
         # Angle conversion from radians.
         
-        dec_degrees = round(theta * 180 / math.pi, 12)
+        dec_degrees = round(theta * 180 / pi, 12)
         return dec_degrees
 
 
@@ -238,7 +238,8 @@ def to_radians(
             )
 
         if not re.fullmatch(
-            sexagesimal_pattern, theta
+            sexagesimal_pattern,
+            theta
         ):
             
             raise ValueError(
@@ -267,19 +268,19 @@ def to_radians(
     elif from_gradians:
         # Angle conversion from gradians.
 
-        radians = round(theta * math.pi / 200, 12)
+        radians = round(theta * pi / 200, 12)
         return radians
 
     elif from_turns:
         # Angle conversion from turns / revolutions.
 
-        radians = round(theta * math.pi * 2, 12)
+        radians = round(theta * pi * 2, 12)
         return radians
 
     else:
         # Angle conversion from decimal degrees.
         
-        radians = round(theta * math.pi / 180, 12)
+        radians = round(theta * pi / 180, 12)
         return radians
 
 
@@ -391,7 +392,7 @@ def to_gradians(
     elif from_radians:
         # Angle conversion from radians.
 
-        gradians = round(200 * theta / math.pi, 12)
+        gradians = round(200 * theta / pi, 12)
         return gradians
 
     elif from_turns:
@@ -483,7 +484,8 @@ def to_turns(
             )
 
         if not re.fullmatch(
-            sexagesimal_pattern, theta
+            sexagesimal_pattern,
+            theta
         ):
             
             raise ValueError(
@@ -524,7 +526,7 @@ def to_turns(
     else:
         # Angle conversion from radians.
         
-        turns = round(theta / (2 * math.pi), 12)
+        turns = round(theta / (2 * pi), 12)
         return turns
 
 
@@ -627,7 +629,7 @@ def to_sexagesimal(
     else:
         # Angle conversion from radians.
       
-        theta = Fraction(str(theta))*180 / Fraction(str(math.pi))
+        theta = Fraction(str(theta))*180 / Fraction(str(pi))
     
     if theta < 0:
         sign = "-"
