@@ -3,11 +3,11 @@ import numpy as np
 import sympy
 import traceback
 import inspect
-from math import *
 from fractions import Fraction
+from math import *
 from collections import defaultdict, namedtuple
 
-import exceptions
+import .exceptions
 
 
 def are_bools(tuple_arg):
@@ -83,8 +83,8 @@ def to_dec_degrees(
     if not are_bools(unit_arguments): 
 
         raise TypeError(
-            "Class type not supported; use only 'True' or 'False' as " + 
-            "arguments fur current angle units to convert."
+            f"Class type not supported; use only 'True' or 'False' as " 
+            f"arguments fur current angle units to convert."
         )
 
     # Checking whether all unit arguments are False,
@@ -101,7 +101,7 @@ def to_dec_degrees(
     if len(passed_True_unit_args) >= 2:
 
         raise ValueError(
-            "Unit error; more than one unit requested for converting.\nOnly one supported."
+            "Unit error; more than one unit requested for converting. Only one supported."
         )
     
     if from_sexagesimal:
@@ -115,7 +115,8 @@ def to_dec_degrees(
             )
 
         if not re.fullmatch(
-            sexagesimal_pattern, theta
+            sexagesimal_pattern, 
+            theta
         ):
             
             raise ValueError(
@@ -206,8 +207,8 @@ def to_radians(
     if not are_bools(unit_arguments): 
 
         raise TypeError(
-            "Class type not supported; use only 'True' or 'False' as " + 
-            "arguments fur current angle units to convert."
+            f"Class type not supported; use only 'True' or 'False' as "
+            f"arguments fur current angle units to convert."
         )
 
     # Checking whether all unit arguments are False,
@@ -238,7 +239,7 @@ def to_radians(
             )
 
         if not re.fullmatch(
-            sexagesimal_pattern,
+            sexagesimal_pattern, 
             theta
         ):
             
@@ -261,7 +262,7 @@ def to_radians(
     elif type(theta) not in (int, float):
         
         raise TypeError(
-            f"Class type not supported; {theta} int or float expected. "\
+            f"Class type not supported; {theta} int or float expected. "
             f"If used sexagesimal system, pass from_sexagesimal parameter as True."
         )
 
@@ -330,8 +331,8 @@ def to_gradians(
     if not are_bools(unit_arguments): 
 
         raise TypeError(
-            "Class type not supported; use only 'True' or 'False' as " + 
-            "arguments fur current angle units to convert."
+            f"Class type not supported; use only 'True' or 'False' as "
+            f"arguments fur current angle units to convert."
         )
 
     # Checking whether all unit arguments are False,
@@ -362,14 +363,14 @@ def to_gradians(
             )
 
         if not re.fullmatch(
-            sexagesimal_pattern, theta
+            sexagesimal_pattern, 
+            theta
         ):
             
             raise ValueError(
-                "Angle " + str(theta) +  
-                " not matching correct format or out of numeric range. " + 
-                "Requested numeric type and degrees, minutes, seconds pattern: D" +  
-                str(chr(176)) + "MM'SS'' or DdMM'SS''"
+                f"Angle {theta} not matching correct format or out of numeric range. " 
+                f"Requested numeric type and degrees, minutes, seconds pattern: "
+                f"D{chr(176)}MM'SS'' or DdMM'SS''"
             )
             
         separator = re.findall(f"[0-9]+[d{chr(176)}]", theta)[0][-1]
@@ -384,9 +385,8 @@ def to_gradians(
     elif type(theta) not in (int, float):
         
         raise TypeError(
-            "Angle " + str(theta) + 
-            " class type not supported.'int' or 'float' expected. " + 
-            "If used sexagesimal system; pass from_sexagesimal parameter as True."
+            f"Angle {theta} class type not supported.'int' or 'float' expected. "
+            f"If used sexagesimal system; pass from_sexagesimal parameter as True."
         )
 
     elif from_radians:
@@ -452,8 +452,8 @@ def to_turns(
     if not are_bools(unit_arguments): 
 
         raise TypeError(
-            "Class type not supported; use only 'True' or 'False' as " + 
-            "arguments fur current angle units to convert."
+            f"Class type not supported; use only 'True' or 'False' as "
+            f"arguments fur current angle units to convert."
         )
 
     # Checking whether all unit arguments are False,
@@ -478,13 +478,22 @@ def to_turns(
 
         sexagesimal_pattern = f"[0-9]+[d{chr(176)}][0-5]?[0-9]'[0-5]?[0-9]([.][0-9]*)*''"
 
+        try:
+
+            if theta.__module__ == "sexagesimal":
+                theta = theta.str_
+
+        except AttributeError:
+            
+            pass
+
         if type(theta) != str:
             raise TypeError(
-                "Class type not supported; string expected."
+                "Class type not supported; string or sexagesimal module expected"
             )
 
         if not re.fullmatch(
-            sexagesimal_pattern,
+            sexagesimal_pattern, 
             theta
         ):
             
@@ -612,24 +621,24 @@ def to_sexagesimal(
         
     if from_dec_degrees:
         # Angle conversion from decimal degrees.
-        theta = Fraction(str(theta))
+        theta = str(theta)
 
     elif from_gradians:
         # Angle conversion from gradians.
 
         theta = str(theta * 0.9)
-        theta = Fraction(theta)
 
     elif from_turns:
         # Angle conversion from turns.  
 
         theta = str(theta * 360)
-        theta = Fraction(theta)  
 
     else:
         # Angle conversion from radians.
       
-        theta = Fraction(str(theta))*180 / Fraction(str(pi))
+        theta = Fraction(str(theta)) * 180 / Fraction(str(pi))
+
+    theta = Fraction(theta)
     
     if theta < 0:
         sign = "-"
@@ -641,6 +650,7 @@ def to_sexagesimal(
     minutes = (theta - degrees) * 60
     degrees = int(f"{sign}{degrees}")
     seconds = round(float((minutes - int(minutes)) * 60), 12)
+    #seconds = (minutes - int(minutes))*60
     minutes = int(minutes)
 
     sexagesimal_str = f"{degrees}{chr(176)}{minutes}'{seconds}''"
