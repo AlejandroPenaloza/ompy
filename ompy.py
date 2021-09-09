@@ -1,6 +1,5 @@
 import re
 import numpy as np
-import sympy
 import traceback
 import inspect
 from fractions import Fraction
