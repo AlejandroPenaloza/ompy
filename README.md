@@ -1,3 +1,3 @@
-# <img width="580" alt="ompy logo heading image2" src="https://user-images.githubusercontent.com/56207845/132630471-a971f380-f533-4c48-87d0-5fe7ea616ba9.png">
+# <img width="500" alt="ompy logo heading 2" src="https://user-images.githubusercontent.com/56207845/139159286-893a6e08-c04e-47d5-b405-d9d2d684dc9b.png">
 
-### Python library development, mainly mathematical tools.
+### Python library development, mainly mathematical tools. Intended to grow to a Python module.
