@@ -11,9 +11,16 @@
 
 This file provides functions to be used with angles and their different measures. (FOR NOW, TO KEEP BEING DEVELOPED).
 
-are_bools(_tuple_arg_)
+__are_bools__(*tuple_arg*)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It checks if items in tuple are booleans data type.
 
-It checks if items in tuple are booleans data type.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ *tuple_arg*: tuple.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Returns:__ bool. True if all items are bools.
 
-Parameters: *tuple_arg*: tuple
-Returns: True if all items are bools
+```
+>>> import ompy.ompy as op
+>>> op.are_bools(True, 2, "Hello")
+False
+>>> op.are_bools(True, False, True)
+True
+```
