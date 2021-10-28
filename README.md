@@ -142,3 +142,43 @@ bool; default True.\
 >>> op.to_gradians(0.123456, from_turns=True)
 49.3824
 ```
+\
+__to_turns(*theta, from_dec_degrees=False, from_sexagesimal=False, from_gradians=False, from_radians=True*)__\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It converts the provided angle to number of equivalent turns or revolutions.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ theta: int, float or str; required.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Angle to convert. If provided as str, current unit has to be sexagesimal system as 
+respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be any-digits number 
+(under supported range), MM (whole num) and SS (could be decimal) are a 1 or 2 digit number lower than 60.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*from_dec_degrees:*
+bool; default False.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pass True if current unit to convert from is decimal degrees.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*from_sexagesimal:*
+bool; default False.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pass True if current unit to convert from is degrees, minutes and seconds (sexagesimal measurement system).
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*from_gradians:*
+bool; default False.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pass True if current unit to convert from is gradians.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*from_radians:*
+bool; default True.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pass True if current unit to convert from is radians.
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Returns:__ float; original angle now in number of turns/revolutions.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
+```
+>>> import ompy.ompy as op
+>>> op.to_turns(1.23456)
+0.196486326544
+>>> op.to_turns(12.3456, from_dec_degrees=True)
+0.034293333333
+>>> op.to_turns("12d34'56''", from_sexagesimal=True)
+0.034950617284
+>>> op.to_turns(0.123456, from_gradians=True)
+0.030864
+```
