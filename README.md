@@ -133,12 +133,12 @@ bool; default True.\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.ompy as op
->>> op.to_gradians(12.3456)
-
->>> op.to_gradians(, from_dec_degrees=True)
-
+>>> op.to_gradians(1.23456)
+78.594530617412
+>>> op.to_gradians(12.3456, from_dec_degrees=True)
+13.7173333333
 >>> op.to_gradians("12d34'56''", from_sexagesimal=True)
-
+13.98024691358
 >>> op.to_gradians(0.123456, from_turns=True)
-
+49.3824
 ```
