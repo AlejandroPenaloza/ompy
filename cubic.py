@@ -8,8 +8,8 @@ from collections import Counter
 def cbrt(radicand):
 
     """
-    Returns the real cubic root -principal value- of a real number
-    :param radicand: int, float; required.
+    Returns the real cubic root -principal value- of a real number.
+    :param radicand: int, float; required. Number to take the root of.
     :return: float; cubic root.
     """
 
@@ -27,7 +27,7 @@ def cb_depressed(a, b, c, d):
     """
     Transforms a general cubic equation to a depressed cubic equation.
     It takes general coefficients 'a', 'b', 'c', 'd' and returns depressed coefficients 'p', 'q'.
-    :param a: int, float; required (cannot be 0).
+    :param a: int, float; required (it cannot be 0).
     :param b: int, float; required.
     :param c: int, float; required.
     :param d: int, float; required.
@@ -45,7 +45,7 @@ def cbdelta(p, q):
     Calculates the cubic discrimant (delta) for a depressed cubic equation.
     :param p: int, float; required. Coefficient 'p' from depressed equation.
     :param q: int, float; required. Coefficient 'q' from depressed equation.
-    :return: float; discriminant.
+    :return: float; cubic delta number.
     """
 
     p = float(p)
@@ -56,13 +56,13 @@ def cbdelta(p, q):
 def cb_depressed_roots(p, q):
 
     """
-    For depressed, or reduced, cubic equations returns a tuple with its roots as strings.
+    For depressed, or reduced, cubic equations returns a tuple with its roots.
     :param p: int, float; required. Coefficient 'p' from depressed equation.
     :param q: int, float; required. Coefficient 'q' from depressed equation.
     :return: tuple.
-        [0]: str. First root, corresponding to a real number.
-        [1]: str. Seconds root, corresponding to a real or complex number.
-        [2]: str. Third root, corresponding to a real or complex number.
+        [0]: str; first root. Corresponding to a real number.
+        [1]: str; seconds root. Corresponding to a real or complex number.
+        [2]: str; third root. Corresponding to a real or complex number.
     """
 
     p = float(p)
