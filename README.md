@@ -245,3 +245,145 @@ SexagesimalAngle(str_="44°26'38.976''", degrees=44, minutes=26, seconds=38.976)
 ## cubic
 \
 Analysis for cubic equations (for now, to be developed).
+
+\
+__cbrt(*radicand*)__\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculates the real cubic root -principal value- of a real number.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ *radicand:* *int*, *float*; required.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Number to take the root of.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Returns:__ *float*; cubic root.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
+```
+>>> import ompy.ompy as op
+>>> op.to_turns(1.23456)
+0.196486326544
+>>> op.to_turns(12.3456, from_dec_degrees=True)
+0.034293333333
+>>> op.to_turns("12d34'56''", from_sexagesimal=True)
+0.034950617284
+>>> op.to_turns(0.123456, from_gradians=True)
+0.030864
+```
+\
+__cb_depressed(*a, b, c, d*)__\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Transforms a general cubic equation to a depressed cubic equation. 
+It takes general equation coefficients 'a', 'b', 'c', 'd' and returns depressed equation coeffcients 'p', 'q'.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ *a:* *int*, *float*; required (it cannot be 0).
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*b:* *int*, *float*; required.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*c:* *int*, *float*; required.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*d:* *int*, *float*; required.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Returns:__ *tuple*. *[0]:* coefficient 'p', *[1]:* coefficient 'q'.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
+```
+>>> import ompy.ompy as op
+>>> op.to_sexagesimal(1.23456)
+SexagesimalAngle(str_="70°46'15.4394904459''", degrees=70, minutes=46, seconds=15.4394904459)
+>>> op.to_sexagesimal(1.23456).str_
+"70°46'15.4394904459''"
+>>> op.to_sexagesimal(1.23456).degrees
+70
+>>> op.to_sexagesimal(1.23456).minutes
+46
+>>> op.to_sexagesimal(1.23456).seconds
+15.4394904459
+```
+\
+__cbdelta(*p, q*)__\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculates the cubic discriminant (delta) for a depressed cubic equation
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ *p:* *int*, *float*; required. Coefficient 'p' from depressed equation. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*q:* *int*, *float*; required. Coefficient 'q' from depressed equation.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Returns:__ *float*. Cubic delta number.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
+```
+>>> import ompy.ompy as op
+>>> op.to_sexagesimal(1.23456)
+SexagesimalAngle(str_="70°46'15.4394904459''", degrees=70, minutes=46, seconds=15.4394904459)
+>>> op.to_sexagesimal(1.23456).str_
+"70°46'15.4394904459''"
+>>> op.to_sexagesimal(1.23456).degrees
+70
+>>> op.to_sexagesimal(1.23456).minutes
+46
+>>> op.to_sexagesimal(1.23456).seconds
+15.4394904459
+```
+\
+__cb_depressed_roots(*p, q*)__\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For depressed cubic equations returns a tuple with its roots.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ *p:* *int*, *float*; required.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coefficient 'p' from depressed equation.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*q:* *int*, *float*; required.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coefficient 'q' from depressed equation.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Returns:__ *tuple*; equation roots.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*[0]*      : *str*; first root. Corresponding to a real number.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*[1]*   : *str*; second root. Corresponding to a real or complex number.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*[2]*   : *str*; third root. Corresponding to a real or complex number.\
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
+```
+>>> import ompy.ompy as op
+>>> op.to_sexagesimal(1.23456)
+SexagesimalAngle(str_="70°46'15.4394904459''", degrees=70, minutes=46, seconds=15.4394904459)
+>>> op.to_sexagesimal(1.23456).str_
+"70°46'15.4394904459''"
+>>> op.to_sexagesimal(1.23456).degrees
+70
+>>> op.to_sexagesimal(1.23456).minutes
+46
+>>> op.to_sexagesimal(1.23456).seconds
+15.4394904459
+```
+
+\
+__cb_roots_str(*a, b, c, d*)__\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculates cubic general equations roots.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ *a:* *int*, *float*; required (it cannot be 0).\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Equation coefficient 'a'.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*b:* *int*, *float*; required.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Equation coefficient 'b'.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*c:* *int*, *float*; required.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Equation coefficient 'c'.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*d:* *int*, *float*; required.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Equation coefficient 'd'.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Returns:__ *tuple*; equation roots.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*[0]*      : *str*; first root. Corresponding to a real number.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*[1]*   : *str*; second root. Corresponding to a real or complex number.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*[2]*   : *str*; third root. Corresponding to a real or complex number.\
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
+```
+>>> import ompy.ompy as op
+>>> op.to_sexagesimal(1.23456)
+SexagesimalAngle(str_="70°46'15.4394904459''", degrees=70, minutes=46, seconds=15.4394904459)
+>>> op.to_sexagesimal(1.23456).str_
+"70°46'15.4394904459''"
+>>> op.to_sexagesimal(1.23456).degrees
+70
+>>> op.to_sexagesimal(1.23456).minutes
+46
+>>> op.to_sexagesimal(1.23456).seconds
+15.4394904459
+```
