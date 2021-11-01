@@ -266,9 +266,9 @@ __cbrt(*radicand*)__\
 2.154434690032
 ```
 \
-__cb_depressed(*a, b, c, d*)__\
+__cb_to_depressed(*a, b, c, d*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Transforms a general cubic equation to a depressed cubic equation. 
-It takes general equation coefficients 'a', 'b', 'c', 'd' and returns depressed equation coeffcients 'p', 'q'.
+It takes general equation coefficients 'a', 'b', 'c', 'd' and returns depressed equation coefficients 'p', 'q'.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ *a:* *int*, *float*; required (it cannot be 0).
 
