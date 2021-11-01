@@ -10,7 +10,7 @@
 
 ## ompy
 \
-This file provides functions to be used with angles and their different measures. (FOR NOW, TO BE DEVELOPED).
+Operations and relations for angles and their different measures. (for now, to be developed).
 
 __are_bools(*tuple_arg*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It checks if items in tuple are booleans data type.
@@ -239,3 +239,9 @@ SexagesimalAngle(str_="11°6'39.744''", degrees=11, minutes=6, seconds=39.744)
 >>> op.to_sexagesimal(0.123456, from_turns=True)
 SexagesimalAngle(str_="44°26'38.976''", degrees=44, minutes=26, seconds=38.976)
 ```
+
+
+
+## cubic
+\
+Analysis for cubic equations (for now, to be developed).
