@@ -6,7 +6,13 @@ from collections import Counter
 
 
 def cbrt(radicand):
-    # return the cubic root of a real number
+
+    """
+    Returns the real cubic root -principal value- of a real number
+    :param radicand: int, float; required.
+    :return: float; cubic root.
+    """
+
     radicand = float(radicand)
 
     if radicand < 0:
@@ -17,8 +23,16 @@ def cbrt(radicand):
 
 
 def cb_depressed(a, b, c, d):
-    # transform a general cubic equation to a depressed cubic equation
-    # takes general equation coefficients and returns depressed equation coefficients
+
+    """
+    Transforms a general cubic equation to a depressed cubic equation.
+    It takes general coefficients 'a', 'b', 'c', 'd' and returns depressed coefficients 'p', 'q'.
+    :param a: int, float; required (cannot be 0).
+    :param b: int, float; required.
+    :param c: int, float; required.
+    :param d: int, float; required.
+    :return: tuple. [0]: coefficient 'p'. [1]: coefficient 'q'.
+    """
 
     p = (c / a) - (b ** 2) / (3 * (a ** 2))
     q = 2 * (b / (3 * a)) ** 3 - (b * c) / (3 * (a ** 2)) + d / a
@@ -26,8 +40,13 @@ def cb_depressed(a, b, c, d):
 
 
 def cbdelta(p, q):
-    # cubic discriminant
-    # takes depressed equation coefficients and returns delta (discriminant)
+
+    """
+    Calculates the cubic discrimant (delta) for a depressed cubic equation.
+    :param p: int, float; required. Coefficient 'p' from depressed equation.
+    :param q: int, float; required. Coefficient 'q' from depressed equation.
+    :return: float; discriminant.
+    """
 
     p = float(p)
     q = float(q)
@@ -35,8 +54,16 @@ def cbdelta(p, q):
 
 
 def cb_depressed_roots(p, q):
-    # for depressed, or reduced, cubic equations
-    # returns a tuple with the roots as strings
+
+    """
+    For depressed, or reduced, cubic equations returns a tuple with its roots as strings.
+    :param p: int, float; required. Coefficient 'p' from depressed equation.
+    :param q: int, float; required. Coefficient 'q' from depressed equation.
+    :return: tuple.
+        [0]: str. First root, corresponding to a real number.
+        [1]: str. Seconds root, corresponding to a real or complex number.
+        [2]: str. Third root, corresponding to a real or complex number.
+    """
 
     p = float(p)
     q = float(q)
@@ -66,6 +93,20 @@ def cb_depressed_roots(p, q):
 
 
 def cb_roots_str(a, b, c, d):
+
+    """
+    Calculates cubic general equation roots.
+    :param a: int, float, required (cannot be 0). Equation coefficient 'a'.
+    :param b: int, float; required. Equation coefficient 'b'.
+    :param c: int, float; required. Equation coefficient 'c'.
+    :param d: int, float; required. Equation coefficient 'd'.
+    :return: tuple.
+        [0]: str. First root, corresponding to a real number.
+        [1]: str. Second root, corresponding to a real or complex number.
+        [2]: str. Third root, corresponding to a real or complex number.
+    """
+
+
     a, b, c, d = float(a), float(b), float(c), float(d)
     variable_change = -b/(3*a)
     p = (c / a) - (b ** 2) / (3 * (a ** 2))
