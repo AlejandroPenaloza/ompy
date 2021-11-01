@@ -257,15 +257,13 @@ __cbrt(*radicand*)__\
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
->>> import ompy.ompy as op
->>> op.to_turns(1.23456)
-0.196486326544
->>> op.to_turns(12.3456, from_dec_degrees=True)
-0.034293333333
->>> op.to_turns("12d34'56''", from_sexagesimal=True)
-0.034950617284
->>> op.to_turns(0.123456, from_gradians=True)
-0.030864
+>>> import ompy.cubic as cb
+>>> cb.cbrt(216)
+6.0
+>>> cb.cbrt(-27.0)
+-3.0
+>>> cb.cbrt(10)
+2.154434690032
 ```
 \
 __cb_depressed(*a, b, c, d*)__\
@@ -284,17 +282,15 @@ It takes general equation coefficients 'a', 'b', 'c', 'd' and returns depressed 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
->>> import ompy.ompy as op
->>> op.to_sexagesimal(1.23456)
-SexagesimalAngle(str_="70°46'15.4394904459''", degrees=70, minutes=46, seconds=15.4394904459)
->>> op.to_sexagesimal(1.23456).str_
-"70°46'15.4394904459''"
->>> op.to_sexagesimal(1.23456).degrees
-70
->>> op.to_sexagesimal(1.23456).minutes
-46
->>> op.to_sexagesimal(1.23456).seconds
-15.4394904459
+>>> import ompy.cubic as cb
+>>> cb.cb_to_depressed(1, -3, -3, 1)
+(-6.0, -4.0)
+>>> cb.cb_to_depressed(1, 1, 1, 1)
+(0.6666666666666667, 0.7407407407407407)
+>>> cb.cb_to_depressed(1, 0, 2, 3)
+(2.0, 3.0)
+>>> cb.cb_to_depressed(2, 0, 0, 0)
+(0.0, 0.0)
 ```
 \
 __cbdelta(*p, q*)__\
@@ -308,17 +304,13 @@ __cbdelta(*p, q*)__\
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
->>> import ompy.ompy as op
->>> op.to_sexagesimal(1.23456)
-SexagesimalAngle(str_="70°46'15.4394904459''", degrees=70, minutes=46, seconds=15.4394904459)
->>> op.to_sexagesimal(1.23456).str_
-"70°46'15.4394904459''"
->>> op.to_sexagesimal(1.23456).degrees
-70
->>> op.to_sexagesimal(1.23456).minutes
-46
->>> op.to_sexagesimal(1.23456).seconds
-15.4394904459
+>>> import ompy.cubic as cb
+>>> cb.cbdelta(3, 4)
+20.0
+>>> cb.cbdelta(-3, -2)
+0.0
+>>> cb.delta(5.55555, -4.44444)
+-5.6495085912265
 ```
 \
 __cb_depressed_roots(*p, q*)__\
@@ -338,17 +330,17 @@ __cb_depressed_roots(*p, q*)__\
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
->>> import ompy.ompy as op
->>> op.to_sexagesimal(1.23456)
-SexagesimalAngle(str_="70°46'15.4394904459''", degrees=70, minutes=46, seconds=15.4394904459)
->>> op.to_sexagesimal(1.23456).str_
-"70°46'15.4394904459''"
->>> op.to_sexagesimal(1.23456).degrees
-70
->>> op.to_sexagesimal(1.23456).minutes
-46
->>> op.to_sexagesimal(1.23456).seconds
-15.4394904459
+>>> import ompy.cubic as cb
+>>> cb.cb_depressed_roots(-3, -2)
+('2.0', '-1.0', '-1.0')
+>>> cb.cb_depressed_roots(1, 0)
+('0.0', '-0.0 + 1.0i', '-0.0 - 1.0i')
+>>> cb.cb_depressed_roots(0, 1)
+('-1.0', '0.5 + 0.86602540378i', '0.5 - 0.86602540378i')
+>>> cb.cb_depressed_roots(1.11111, 2.22222)
+('-1.02650941551',
+ '0.513254707755 + 1.37891304479i',
+ '0.513254707755 - 1.37891304479i')
 ```
 
 \
@@ -375,15 +367,15 @@ __cb_roots_str(*a, b, c, d*)__\
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
->>> import ompy.ompy as op
->>> op.to_sexagesimal(1.23456)
-SexagesimalAngle(str_="70°46'15.4394904459''", degrees=70, minutes=46, seconds=15.4394904459)
->>> op.to_sexagesimal(1.23456).str_
-"70°46'15.4394904459''"
->>> op.to_sexagesimal(1.23456).degrees
-70
->>> op.to_sexagesimal(1.23456).minutes
-46
->>> op.to_sexagesimal(1.23456).seconds
-15.4394904459
+>>> import ompy.cubic as cb
+>>> cb.cb_roots_str(1, -15, 75, -125)
+('5.0', '5.0', '5.0')
+>>> cb.cb_roots_str(2, -3, -11, 6)
+('3.0', '-2.0', '0.5')
+>>> cb.cb_roots_str(1, 2, 3, 4)
+('-1.6506291914',
+ '-0.1746854043 + 1.5468688872i',
+ '-0.1746854043 - 1.5468688872i')
+ >>> cb.cb_roots_str(3, 0, 0, 0)
+ (0.0, 0.0, 0.0)
 ```
