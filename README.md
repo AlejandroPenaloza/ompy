@@ -181,7 +181,7 @@ respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be a
 0.034293333333
 >>> op.to_turns("12d34'56''", from_sexagesimal=True)
 0.034950617284
->>> op.to_turns(0.123456, from_gradians=True)
+>>> op.to_turns(12.3456, from_gradians=True)
 0.030864
 ```
 \
