@@ -224,15 +224,15 @@ __to_sexagesimal(*theta, from_dec_degrees=False, from_gradians=False, from_turns
 ```
 >>> import ompy.ompy as op
 >>> op.to_sexagesimal(1.23456)
-SexagesimalAngle(str_="70°46'15.4394904459''", degrees=70, minutes=46, seconds=15.4394904459)
+SexagesimalAngle(str_="70°46'15.4394904459''", degrees=70, minutes=44, seconds=6.279200415296)
 >>> op.to_sexagesimal(1.23456).str_
-"70°46'15.4394904459''"
+"70°44'6.279200415296''"
 >>> op.to_sexagesimal(1.23456).degrees
 70
 >>> op.to_sexagesimal(1.23456).minutes
-46
+44
 >>> op.to_sexagesimal(1.23456).seconds
-15.4394904459
+6.279200415296
 
 >>> op.to_sexagesimal(12.3456, from_dec_degrees=True)
 SexagesimalAngle(str_="12°20'44.16''", degrees=12, minutes=20, seconds=44.16)
