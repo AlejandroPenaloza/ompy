@@ -250,7 +250,7 @@ Analysis for cubic equations (for now, to be developed).
 
 \
 __cbrt(*radicand*)__\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculates the real cubic root -principal value- of a real number.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculates the real cubic root -principal value- of rational representations of real numbers.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ *radicand:* *int*, *float*; required.\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Number to take the root of.
