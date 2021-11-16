@@ -87,9 +87,9 @@ def cb_depressed_roots(p, q):
     Returns
     -------
     tuple. Equation roots.
-        [0]: str; first root, representing to a real number.
-        [1]: str; second root, representing to a real or complex number.
-        [2]: str; third root, representing to a real or complex number.
+        [0]: str; first root, represents a real number.
+        [1]: str; second root, represents a real or complex number.
+        [2]: str; third root, represents a real or complex number.
     """
 
     p = float(p)
@@ -134,9 +134,9 @@ def cb_roots_str(a, b, c, d):
     Returns
     -------
     tuple. Equation roots.
-        [0]: str. First root, representing to a real number.
-        [1]: str. Second root, representing to a real or complex number.
-        [2]: str. Third root, representing to a real or complex number.
+        [0]: str. First root, represents a real number.
+        [1]: str. Second root, represents a real or complex number.
+        [2]: str. Third root, represents a real or complex number.
     """
 
 
