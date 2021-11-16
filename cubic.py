@@ -8,9 +8,16 @@ from collections import Counter
 def cbrt(radicand):
 
     """
-    Returns the real cubic root -principal value- of a real number.
-    :param radicand: int, float; required. Number to take the root of.
-    :return: float; cubic root.
+    Calculates the real cubic root -principal value- of rational representations
+    of real numbers.
+
+    Parameter
+    ---------
+    radicand: int, float; required. Number to take the root of.
+
+    Returns
+    -------
+    float; cubic root.
     """
 
     radicand = float(radicand)
@@ -22,16 +29,24 @@ def cbrt(radicand):
         return round(radicand**(1/3), 12)
 
 
-def cb_depressed(a, b, c, d):
+def cb_to_depressed(a, b, c, d):
 
     """
     Transforms a general cubic equation to a depressed cubic equation.
     It takes general coefficients 'a', 'b', 'c', 'd' and returns depressed coefficients 'p', 'q'.
-    :param a: int, float; required (it cannot be 0).
-    :param b: int, float; required.
-    :param c: int, float; required.
-    :param d: int, float; required.
-    :return: tuple. [0]: coefficient 'p'. [1]: coefficient 'q'.
+
+    Parameters
+    ----------
+    a: int, float; required (it cannot be 0).
+    b: int, float; required.
+    c: int, float; required.
+    d: int, float; required.
+
+    Returns
+    -------
+    tuple. Depressed equation coefficients.
+    [0]: coefficient 'p'.
+    [1]: coefficient 'q'.
     """
 
     p = (c / a) - (b ** 2) / (3 * (a ** 2))
@@ -42,10 +57,16 @@ def cb_depressed(a, b, c, d):
 def cbdelta(p, q):
 
     """
-    Calculates the cubic discrimant (delta) for a depressed cubic equation.
-    :param p: int, float; required. Coefficient 'p' from depressed equation.
-    :param q: int, float; required. Coefficient 'q' from depressed equation.
-    :return: float; cubic delta number.
+    Calculates the cubic discriminant (delta) for a depressed cubic equation.
+
+    Parameters
+    ----------
+    p: int, float; required. Coefficient 'p' from depressed equation.
+    q: int, float; required. Coefficient 'q' from depressed equation.
+
+    Returns
+    -------
+    float; cubic delta number.
     """
 
     p = float(p)
@@ -57,12 +78,18 @@ def cb_depressed_roots(p, q):
 
     """
     For depressed, or reduced, cubic equations returns a tuple with its roots.
-    :param p: int, float; required. Coefficient 'p' from depressed equation.
-    :param q: int, float; required. Coefficient 'q' from depressed equation.
-    :return: tuple.
-        [0]: str; first root. Corresponding to a real number.
-        [1]: str; seconds root. Corresponding to a real or complex number.
-        [2]: str; third root. Corresponding to a real or complex number.
+
+    Parameters
+    ----------
+    p: int, float; required. Coefficient 'p' from depressed equation.
+    q: int, float; required. Coefficient 'q' from depressed equation.
+
+    Returns
+    -------
+    tuple. Equation roots.
+        [0]: str; first root, representing to a real number.
+        [1]: str; second root, representing to a real or complex number.
+        [2]: str; third root, representing to a real or complex number.
     """
 
     p = float(p)
@@ -96,14 +123,20 @@ def cb_roots_str(a, b, c, d):
 
     """
     Calculates cubic general equation roots.
-    :param a: int, float, required (cannot be 0). Equation coefficient 'a'.
-    :param b: int, float; required. Equation coefficient 'b'.
-    :param c: int, float; required. Equation coefficient 'c'.
-    :param d: int, float; required. Equation coefficient 'd'.
-    :return: tuple.
-        [0]: str. First root, corresponding to a real number.
-        [1]: str. Second root, corresponding to a real or complex number.
-        [2]: str. Third root, corresponding to a real or complex number.
+
+    Parameters
+    ----------
+    a: int, float, required (cannot be 0). Equation coefficient 'a'.
+    b: int, float; required. Equation coefficient 'b'.
+    c: int, float; required. Equation coefficient 'c'.
+    d: int, float; required. Equation coefficient 'd'.
+
+    Returns
+    -------
+    tuple. Equation roots.
+        [0]: str. First root, representing to a real number.
+        [1]: str. Second root, representing to a real or complex number.
+        [2]: str. Third root, representing to a real or complex number.
     """
 
 
