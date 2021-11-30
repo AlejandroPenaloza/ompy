@@ -50,6 +50,7 @@ __to_dec_degrees(*theta, from_sexagesimal=False, from_gradians=False, from_turns
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*from_radians:*
 *bool*; default *True*.\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pass *True* if current unit to convert from is radians.\
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Returns:__ *float*; original angle now in decimal degrees.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
@@ -268,7 +269,7 @@ __cbrt(*radicand*)__\
 2.154434690032
 ```
 \
-__cb_to_depressed(*a, b, c, d*)__\
+__to_depressed(*a, b, c, d*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Transforms a general cubic equation to a depressed cubic equation. 
 It takes general equation coefficients 'a', 'b', 'c', 'd' and returns depressed equation coefficients 'p', 'q'.
 
@@ -285,13 +286,13 @@ It takes general equation coefficients 'a', 'b', 'c', 'd' and returns depressed 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.cubic as cb
->>> cb.cb_to_depressed(1, -3, -3, 1)
+>>> cb.to_depressed(1, -3, -3, 1)
 (-6.0, -4.0)
->>> cb.cb_to_depressed(1, 1, 1, 1)
+>>> cb.to_depressed(1, 1, 1, 1)
 (0.6666666666666667, 0.7407407407407407)
->>> cb.cb_to_depressed(1, 0, 2, 3)
+>>> cb.to_depressed(1, 0, 2, 3)
 (2.0, 3.0)
->>> cb.cb_to_depressed(2, 0, 0, 0)
+>>> cb.to_depressed(2, 0, 0, 0)
 (0.0, 0.0)
 ```
 \
@@ -315,7 +316,7 @@ __cbdelta(*p, q*)__\
 -5.6495085912265
 ```
 \
-__cb_depressed_roots(*p, q*)__\
+__depressed_roots(*p, q*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For depressed cubic equations returns a tuple with its roots.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ *p:* *int*, *float*; required.\
@@ -333,20 +334,20 @@ __cb_depressed_roots(*p, q*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.cubic as cb
->>> cb.cb_depressed_roots(-3, -2)
+>>> cb.depressed_roots(-3, -2)
 ('2.0', '-1.0', '-1.0')
->>> cb.cb_depressed_roots(1, 0)
+>>> cb.depressed_roots(1, 0)
 ('0.0', '-0.0 + 1.0i', '-0.0 - 1.0i')
->>> cb.cb_depressed_roots(0, 1)
+>>> cb.depressed_roots(0, 1)
 ('-1.0', '0.5 + 0.86602540378i', '0.5 - 0.86602540378i')
->>> cb.cb_depressed_roots(1.11111, 2.22222)
+>>> cb.depressed_roots(1.11111, 2.22222)
 ('-1.02650941551',
  '0.513254707755 + 1.37891304479i',
  '0.513254707755 - 1.37891304479i')
 ```
 
 \
-__cb_roots_str(*a, b, c, d*)__\
+__roots(*a, b, c, d*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculates cubic general equations roots.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ *a:* *int*, *float*; required (it cannot be 0).\
@@ -370,14 +371,14 @@ __cb_roots_str(*a, b, c, d*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.cubic as cb
->>> cb.cb_roots_str(1, -15, 75, -125)
+>>> cb.roots(1, -15, 75, -125)
 ('5.0', '5.0', '5.0')
->>> cb.cb_roots_str(2, -3, -11, 6)
+>>> cb.roots(2, -3, -11, 6)
 ('3.0', '-2.0', '0.5')
->>> cb.cb_roots_str(1, 2, 3, 4)
+>>> cb.roots(1, 2, 3, 4)
 ('-1.6506291914',
  '-0.1746854043 + 1.5468688872i',
  '-0.1746854043 - 1.5468688872i')
- >>> cb.cb_roots_str(3, 0, 0, 0)
+ >>> cb.roots(3, 0, 0, 0)
  (0.0, 0.0, 0.0)
 ```
