@@ -29,7 +29,7 @@ def cbrt(radicand):
         return round(radicand**(1/3), 12)
 
 
-def cb_to_depressed(a, b, c, d):
+def to_depressed(a, b, c, d):
 
     """
     Transforms a general cubic equation to a depressed cubic equation.
@@ -74,7 +74,7 @@ def cbdelta(p, q):
     return (q**2) + ((4*(p**3))/27)
 
 
-def cb_depressed_roots(p, q):
+def depressed_roots(p, q):
 
     """
     For depressed, or reduced, cubic equations returns a tuple with its roots.
@@ -119,7 +119,7 @@ def cb_depressed_roots(p, q):
         return z1, z2, z3
 
 
-def cb_roots_str(a, b, c, d):
+def roots(a, b, c, d):
 
     """
     Calculates cubic general equation roots.
