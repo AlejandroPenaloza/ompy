@@ -1,3 +1,26 @@
+def check_types(input_var, types_sup, msg=None, exception=TypeError):
+
+    if type(input_var) not in types_sup and msg:
+        raise exception(msg)
+
+    elif type(input_var) not in types_sup and not msg:
+        raise exception
+
+    else:
+        pass
+
+def check_vals(input_var, values_sup, msg=None, exception=ValueError):
+
+    if input_var not in values_sup and msg:
+        raise exception(msg)
+
+    elif input_var not in values_sup and not msg:
+        raise exception
+
+    else:
+        pass
+
+
 class UnitError(Exception):
     
     """
