@@ -1,12 +1,15 @@
 import math
-from fractions import *
+import fractions
 import re
 import inspect
 from collections import Counter
 from .exceptions import check_types, check_vals
 
 
-def F(num, get="fraction"):
+def F(
+        num,
+        get="fraction"
+):
     """
     Transforms a number (int or float) to a Fraction object or , by passing it as
     str first so it is a more accurate value.
@@ -14,11 +17,12 @@ def F(num, get="fraction"):
 
     ct_unsup_excep_msg = "Class type not supported; only int, float or fractions.Fraction object expected."
     check_types(num, (int, float, fractions.Fraction), ct_unsup_excep_msg)
+
     vals_unsup_excep_msg = f"{num} not supported; options are 'numerator', 'denominator', 'asfloat' and 'asstr'."
     check_vals(get, ("fraction", "numerator", "denominator", "asfloat", "asstr"), vals_unsup_excep_msg)
 
     if type(num) != fractions.Fraction:
-        num = Fraction(str(num))
+        num = fractions.Fraction(str(num))
 
     num_n = num.numerator
     num_d = num.denominator
@@ -66,8 +70,12 @@ def cbrt(radicand):
     return rt
 
 
-def to_depressed(a, b, c, d):
-
+def to_depressed(
+        a,
+        b,
+        c,
+        d
+):
     """
     Transforms a general cubic equation to a depressed cubic equation.
     It takes general coefficients 'a', 'b', 'c', 'd' and returns depressed coefficients 'p', 'q'.
@@ -88,20 +96,22 @@ def to_depressed(a, b, c, d):
 
     coefs_type_exc_msg = "Class type not supported; int, float or fractions.Fraction object expected."
 
-    for coef in (a, b,c, d):
+    for coef in (a, b, c, d):
         check_types(coef, (int, float, fractions.Fraction), coefs_type_exc_msg)
 
     a, b, c, d = F(a), F(b), F(c), F(d)
     coef_p = (c / a) - (b ** 2) / (3 * (a ** 2))
     coef_q = 2 * (b / (3 * a)) ** 3 - (b * c) / (3 * (a ** 2)) + d / a
-
     coef_p = round(F(coef_p, get="asfloat"), 12)
     coef_q = round(F(coef_q, get="asfloat"), 12)
     return coef_p, coef_q
 
 
-def cbdelta(p, q):
-
+def cbdelta(
+        p,
+        q,
+        as_frac=False
+):
     """
     Calculates the cubic discriminant (delta) for a depressed cubic equation.
 
@@ -109,26 +119,45 @@ def cbdelta(p, q):
     ----------
     p: int, float; required. Coefficient 'p' from depressed equation.
     q: int, float; required. Coefficient 'q' from depressed equation.
+    as_frac: bool (True or False); optional. Object type to be returned.
 
     Returns
     -------
-    float; cubic delta number.
+    Cubic delta number.
+    float if as_frac passed as False; fractions.Fraction object otherwise.
     """
 
-    p = float(p)
-    q = float(q)
-    return (q**2) + ((4*(p**3))/27)
+    coefs_type_exc_msg = "Class type not supported; int, float or fractions.Fraction object expected."
+    as_frac_type_exc_msg = "Bool expected; True if delta required as fractions.Fraction object or False for float."
+
+    for coef in (p, q):
+        check_types(coef, (int, float, fractions.Fraction), coefs_type_exc_msg)
+
+    check_vals(as_frac, (True, False), as_frac_type_exc_msg)
+
+    p, q = F(p), F(q)
+    delta = (q ** 2) + ((4 * (p ** 3)) / 27)
+
+    if as_frac:
+        delta = F(delta)
+
+    else:
+        delta = F(delta, get="asfloat")
+
+    return delta
 
 
-def depressed_roots(p, q):
-
+def depressed_roots(
+        p,
+        q
+):
     """
     For depressed, or reduced, cubic equations returns a tuple with its roots.
 
     Parameters
     ----------
-    p: int, float; required. Coefficient 'p' from depressed equation.
-    q: int, float; required. Coefficient 'q' from depressed equation.
+    p: int, float, fractions.Fraction object; required. Coefficient 'p' from depressed equation.
+    q: int, float, fractions.Fraction object; required. Coefficient 'q' from depressed equation.
 
     Returns
     -------
@@ -138,31 +167,34 @@ def depressed_roots(p, q):
         [2]: str; third root, represents a real or complex number.
     """
 
-    p = float(p)
-    q = float(q)
-    delta = cbdelta(p, q)
+    delta = cbdelta(p, q, True)
+    p, q = F(p), F(q)
 
     if delta > 0:
-        z1 = round(cbrt(0.5*(-q + math.sqrt(delta))) + cbrt(0.5*(-q - math.sqrt(delta))), 11)
-        real_part = -0.5*z1
-        imaginary_part = round(0.5*math.sqrt(3*(z1**2) + 4*p), 11)
+        z1 = cbrt(0.5 * (-q + math.sqrt(delta))) + cbrt(0.5 * (-q - math.sqrt(delta)))
+        imaginary_part = math.sqrt(3 * (z1 ** 2) + 4 * p) * 0.5
+        print(imaginary_part)
+        imaginary_part = round(F(imaginary_part, "asfloat"), 11)
+        z1 = round(F(z1, "asfloat"), 11)
+        real_part = -0.5 * z1
         z2 = str(real_part) + " + " + str(imaginary_part) + "i"
         z3 = str(real_part) + " - " + str(imaginary_part) + "i"
         z1 = str(z1)
-        return z1, z2, z3
 
     elif delta == 0:
-        z1 = str(round(cbrt(-4*q), 11))
-        z2 = str(round(cbrt(4*q)/2, 11))
+        z1 = F(cbrt(-4 * q), "asfloat")
+        z1 = str(round(z1, 11))
+        z2 = F(cbrt(4 * q) / 2, "asfloat")
+        z2 = str(round(z2, 11))
         z3 = z2
-        return z1, z2, z3
 
     else:
-        angle = math.acos(-q * 0.5 * math.sqrt(27 / (-p ** 3))) / 3
-        z1 = str(round(2 * math.sqrt(-p / 3) * math.cos(angle), 11))
-        z2 = str(round(2 * math.sqrt(-p / 3) * math.cos(angle + 2 * math.pi / 3), 11))
-        z3 = str(round(2 * math.sqrt(-p / 3) * math.cos(angle + 4 * math.pi / 3), 11))
-        return z1, z2, z3
+        formula_angle = math.acos(-q * F(0.5) * F(math.sqrt(27 / (-p ** 3)))) / 3
+        z1 = str(round(2 * math.sqrt(-p / 3) * math.cos(formula_angle), 11))
+        z2 = str(round(2 * math.sqrt(-p / 3) * math.cos(F(formula_angle) + 2 * F(math.pi) / 3), 11))
+        z3 = str(round(2 * math.sqrt(-p / 3) * math.cos(F(formula_angle) + 4 * F(math.pi) / 3), 11))
+
+    return z1, z2, z3
 
 
 def roots(a, b, c, d):
