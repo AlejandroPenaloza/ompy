@@ -1,4 +1,9 @@
-def check_types(input_var, types_sup, msg=None, exception=TypeError):
+def check_types(
+    input_var,
+    types_sup,
+    msg=None,
+    exception=TypeError
+):
 
     if type(input_var) not in types_sup and msg:
         raise exception(msg)
@@ -9,7 +14,13 @@ def check_types(input_var, types_sup, msg=None, exception=TypeError):
     else:
         pass
 
-def check_vals(input_var, values_sup, msg=None, exception=ValueError):
+
+def check_vals(
+    input_var,
+    values_sup,
+    msg=None,
+    exception=ValueError
+):
 
     if input_var not in values_sup and msg:
         raise exception(msg)
