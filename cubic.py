@@ -157,8 +157,9 @@ def cbdelta(
 
 
 def depressed_roots(
-    coef_p,
-    coef_q
+        coef_p,
+        coef_q,
+        symbolic=False
 ):
 
     """
@@ -166,8 +167,9 @@ def depressed_roots(
 
     Parameters
     ----------
-    coef_p: int, float, fractions.Fraction object; required. Coefficient 'p' from depressed equation.
-    coef_q: int, float, fractions.Fraction object; required. Coefficient 'q' from depressed equation.
+    coef_p  : int, float, fractions.Fraction object; required. Coefficient 'p' from depressed equation.
+    coef_q  : int, float, fractions.Fraction object; required. Coefficient 'q' from depressed equation.
+    symbolic: bool (True or False); optional. For requesting symbolic math output. False by default.
 
     Returns
     -------
@@ -177,18 +179,28 @@ def depressed_roots(
         [2]: str; third root, represents a real or complex number.
     """
 
+    global _symbolic_exc_msg
+    _symbolic_exc_msg = "Bool expected; True if symbolic mathematics output required or False for strings output."
+    check_vals(symbolic, (True, False), _symbolic_exc_msg)
+
     delta = cbdelta(coef_p, coef_q, True)
     p, q = F(coef_p), F(coef_q)
 
     if delta > 0:
         z1 = cbrt(0.5 * (-q + math.sqrt(delta))) + cbrt(0.5 * (-q - math.sqrt(delta)))
         imaginary_part = math.sqrt(3 * (z1 ** 2) + 4 * p) * 0.5
-        imaginary_part = round(F(imaginary_part, "asfloat"), 11)
+        imaginary_part = str(round(F(imaginary_part, "asfloat"), 11))
         z1 = round(F(z1, "asfloat"), 11)
-        real_part = -0.5 * z1
-        z2 = str(real_part) + " + " + str(imaginary_part) + "i"
-        z3 = str(real_part) + " - " + str(imaginary_part) + "i"
+        real_part = str(-0.5 * z1)
+        z2 = real_part + " + " + imaginary_part + "i"
+        z3 = real_part + " - " + imaginary_part + "i"
         z1 = str(z1)
+
+        if symbolic:
+            z1, sym_real, sym_imry = sp.symbols(z1 + " " + real_part + " " + imaginary_part)
+            z2 = sym_real + sym_imry * sp.I
+            z3 = sym_real - sym_imry * sp.I
+            return display(z1, z2, z3)
 
     elif delta == 0:
         z1 = F(cbrt(-4 * q), "asfloat")
@@ -197,11 +209,21 @@ def depressed_roots(
         z2 = str(round(z2, 11))
         z3 = z2
 
+        if symbolic:
+            z1, z2, z3 = sp.symbols(z1 + " " + z2 + " " + z3)
+
+            return display(z1, z2, z3)
+
     else:
         formula_angle = math.acos(-q * F(0.5) * F(math.sqrt(27 / (-p ** 3)))) / 3
         z1 = str(round(2 * math.sqrt(-p / 3) * math.cos(formula_angle), 11))
         z2 = str(round(2 * math.sqrt(-p / 3) * math.cos(F(formula_angle) + 2 * F(math.pi) / 3), 11))
         z3 = str(round(2 * math.sqrt(-p / 3) * math.cos(F(formula_angle) + 4 * F(math.pi) / 3), 11))
+
+        if symbolic:
+            z1, z2, z3 = sp.symbols(z1 + " " + z2 + " " + z3)
+
+            return display(z1, z2, z3)
 
     return z1, z2, z3
 
@@ -210,7 +232,8 @@ def roots(
     coef_a,
     coef_b,
     coef_c,
-    coef_d
+    coef_d,
+    symbolic=False
 ):
 
     """
@@ -218,10 +241,11 @@ def roots(
 
     Parameters
     ----------
-    coef_a: int, float, required (cannot be 0). Equation coefficient 'a'.
-    coef_b: int, float; required. Equation coefficient 'b'.
-    coef_c: int, float; required. Equation coefficient 'c'.
-    coef_d: int, float; required. Equation coefficient 'd'.
+    coef_a  : int, float, required (cannot be 0). Equation coefficient 'a'.
+    coef_b  : int, float; required. Equation coefficient 'b'.
+    coef_c  : int, float; required. Equation coefficient 'c'.
+    coef_d  : int, float; required. Equation coefficient 'd'.
+    symbolic: bool (True or False); optional. For requesting symbolic math output. False by default.
 
     Returns
     -------
@@ -233,6 +257,8 @@ def roots(
 
     for coef in (coef_a, coef_b, coef_c, coef_d):
         check_types(coef, (int, float, fractions.Fraction), _coefs_type_exc_msg)
+
+    check_vals(symbolic, (True, False), _symbolic_exc_msg)
 
     a, b, c, d = F(coef_a), F(coef_b), F(coef_c), F(coef_d)
     variable_change = -b / (3 * a)
@@ -246,14 +272,24 @@ def roots(
         x2 = str(round(float(cor_depressed_eq_roots[1]) + variable_change, 11))
         x3 = str(round(float(cor_depressed_eq_roots[2]) + variable_change, 11))
 
-        return x1, x2, x3
+        if symbolic:
+            x1, x2, x3 = sp.symbols(x1 + " " + x2 + " " + x3)
+
+            return display(x1, x2, x3)
 
     else:
-        z1 = cbrt(0.5 * (-corresp_q + F(math.sqrt(delta)))) + cbrt(0.5 * (-corresp_q - F(math.sqrt(delta))))
-        real_part = -0.5 * z1
-        imaginary_part = 0.5 * math.sqrt(3 * (z1 ** 2) + 4 * corresp_p)
+        z1 = cbrt(0.5*(-corresp_q + F(math.sqrt(delta)))) + cbrt(0.5 * (-corresp_q - F(math.sqrt(delta))))
+        real_part = str(round(-0.5 * z1 + variable_change, 11))
+        imaginary_part = str(round(0.5 * math.sqrt(3 * (z1 ** 2) + 4 * corresp_p), 11))
         x1 = str(round(z1 + variable_change, 11))
-        x2 = str(round(real_part + variable_change, 11)) + " + " + str(round(imaginary_part, 11)) + "i"
-        x3 = str(round(real_part + variable_change, 11)) + " - " + str(round(imaginary_part, 11)) + "i"
+        x2 = real_part + " + " + imaginary_part + "i"
+        x3 = real_part + " - " + imaginary_part + "i"
 
-        return x1, x2, x3
+        if symbolic:
+            x1, sym_real, sym_imry = sp.symbols(x1 + " " + real_part + " " + imaginary_part)
+            x2 = sym_real + sym_imry * sp.I
+            x3 = sym_real - sym_imry * sp.I
+
+            return display(x1, x2, x3)
+
+    return x1, x2, x3
