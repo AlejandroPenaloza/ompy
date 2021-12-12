@@ -404,6 +404,7 @@ __roots(*coef_a, coef_b, coef_c, coef_d*)__\
  '-0.1746854043 - 1.5468688872i')
 ```
 
+![roots symbolic code example2](https://user-images.githubusercontent.com/56207845/145701993-8b06b014-b0bc-45f6-83cc-22bea1862232.jpg)
 
 
 
