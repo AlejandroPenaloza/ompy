@@ -346,15 +346,21 @@ __depressed_roots(*coef_p, coef_q, symbolic*)__\
 >>> import ompy.cubic as cb
 >>> cb.depressed_roots(-3, -2)
 ('2.0', '-1.0', '-1.0')
+
+
 >>> cb.depressed_roots(1, 0)
 ('0.0', '-0.0 + 1.0i', '-0.0 - 1.0i')
+
 >>> cb.depressed_roots(0, 1)
 ('-1.0', '0.5 + 0.86602540378i', '0.5 - 0.86602540378i')
+
 >>> cb.depressed_roots(1.11111, 2.22222)
 ('-1.02650941551',
  '0.513254707755 + 1.37891304479i',
  '0.513254707755 - 1.37891304479i')
 ```
+![depressed_roots symbolic code example](https://user-images.githubusercontent.com/56207845/145702276-31fb1213-f1fc-4267-acf1-b5d1c7ef2e07.jpg)
+
 
 \
 __roots(*coef_a, coef_b, coef_c, coef_d*)__\
