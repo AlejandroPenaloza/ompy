@@ -224,21 +224,29 @@ __to_sexagesimal(*theta, from_dec_degrees=False, from_gradians=False, from_turns
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.ompy as op
+
 >>> op.to_sexagesimal(1.23456)
 SexagesimalAngle(str_="70°44'6.279200415296''", degrees=70, minutes=44, seconds=6.279200415296)
+
 >>> op.to_sexagesimal(1.23456).str_
 "70°44'6.279200415296''"
+
 >>> op.to_sexagesimal(1.23456).degrees
 70
+
 >>> op.to_sexagesimal(1.23456).minutes
 44
+
 >>> op.to_sexagesimal(1.23456).seconds
 6.279200415296
 
+
 >>> op.to_sexagesimal(12.3456, from_dec_degrees=True)
 SexagesimalAngle(str_="12°20'44.16''", degrees=12, minutes=20, seconds=44.16)
+
 >>> op.to_sexagesimal(12.3456, from_gradians=True)
 SexagesimalAngle(str_="11°6'39.744''", degrees=11, minutes=6, seconds=39.744)
+
 >>> op.to_sexagesimal(0.123456, from_turns=True)
 SexagesimalAngle(str_="44°26'38.976''", degrees=44, minutes=26, seconds=38.976)
 ```
@@ -261,10 +269,13 @@ __cbrt(*radicand*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.cubic as cb
+
 >>> cb.cbrt(216)
 6.0
+
 >>> cb.cbrt(-27.0)
 -3.0
+
 >>> cb.cbrt(10)
 2.154434690032
 ```
@@ -286,12 +297,16 @@ It takes general equation coefficients 'a', 'b', 'c', 'd' and returns depressed 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.cubic as cb
+
 >>> cb.to_depressed(1, -3, -3, 1)
 (-6.0, -4.0)
+
 >>> cb.to_depressed(1, 1, 1, 1)
 (0.6666666666666667, 0.7407407407407407)
+
 >>> cb.to_depressed(1, 0, 2, 3)
 (2.0, 3.0)
+
 >>> cb.to_depressed(2, 0, 0, 0)
 (0.0, 0.0)
 ```
@@ -306,17 +321,23 @@ __cbdelta(*coef_p, coef_q, as_frac=False*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*as_frac:* *bool* (*True* or *False*); optional. *False* by default. Object type to be returned.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Returns:__ Cubic delta number.\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fractions.Fraction object if as_frac passed as *True*, *float* otherwise.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*fractions.Fraction* object if *as_frac* passed as *True*, *float* otherwise.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.cubic as cb
+
 >>> cb.cbdelta(3, 4)
 20.0
+
 >>> cb.cbdelta(-3, -2)
 0.0
+
 >>> cb.delta(5.55555, -4.44444)
 -5.6495085912265
+
+>>> cb.cbdelta(-11, 8)
+Fraction(-3596, 27)
 ```
 \
 __depressed_roots(*coef_p, coef_q, symbolic*)__\
@@ -344,6 +365,7 @@ __depressed_roots(*coef_p, coef_q, symbolic*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.cubic as cb
+
 >>> cb.depressed_roots(-3, -2)
 ('2.0', '-1.0', '-1.0')
 
