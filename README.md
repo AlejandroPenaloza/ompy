@@ -23,8 +23,10 @@ __are_bools(*tuple_arg*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.ompy as op
+
 >>> op.are_bools(True, 2, "Hello")
 False
+
 >>> op.are_bools(True, False, True)
 True
 ```
@@ -56,12 +58,16 @@ __to_dec_degrees(*theta, from_sexagesimal=False, from_gradians=False, from_turns
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.ompy as op
+
 >>> op.to_dec_degrees(1.23456)
 70.735077555671
+
 >>> op.to_dec_degrees("12d34'56''", from_sexagesimal=True)
 12.582222222222
+
 >>> op.to_dec_degrees(12.3456, from_gradians=True)
 11.11104
+
 >>> op.to_dec_degrees(0.123456, from_turns=True)
 44.44416
 ```
@@ -96,12 +102,16 @@ bool; default *False*.\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.ompy as op
+
 >>> op.to_radians(12.3456)
 0.215471368134
+
 >>> op.to_radians("12d34'56''", from_sexagesimal=True)
 0.219601204995
+
 >>> op.to_radians(12.3456, from_gradians=True)
 0.193924231321
+
 >>> op.to_radians(0.123456, from_turns=True)
 0.775696925283
 ```
@@ -136,12 +146,16 @@ respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be a
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.ompy as op
+
 >>> op.to_gradians(1.23456)
 78.594530617412
+
 >>> op.to_gradians(12.3456, from_dec_degrees=True)
 13.7173333333
+
 >>> op.to_gradians("12d34'56''", from_sexagesimal=True)
 13.98024691358
+
 >>> op.to_gradians(0.123456, from_turns=True)
 49.3824
 ```
@@ -176,12 +190,16 @@ respective input is to be "DdMM'SS''" or "DdMM'SS''" pattern; where D could be a
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Examples:__
 ```
 >>> import ompy.ompy as op
+
 >>> op.to_turns(1.23456)
 0.196486326544
+
 >>> op.to_turns(12.3456, from_dec_degrees=True)
 0.034293333333
+
 >>> op.to_turns("12d34'56''", from_sexagesimal=True)
 0.034950617284
+
 >>> op.to_turns(12.3456, from_gradians=True)
 0.030864
 ```
