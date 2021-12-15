@@ -399,10 +399,9 @@ __depressed_roots(*coef_p, coef_q, symbolic*)__\
  '0.513254707755 + 1.37891304479i',
  '0.513254707755 - 1.37891304479i')
 ```
-![depressed_roots symbolic code example](https://user-images.githubusercontent.com/56207845/145702276-31fb1213-f1fc-4267-acf1-b5d1c7ef2e07.jpg)
 
+![depressed_roots symbolic code example2](https://user-images.githubusercontent.com/56207845/146120337-2524a0cd-bdab-4426-9df0-a6cecf569f0d.jpg)
 
-\
 __roots(*coef_a, coef_b, coef_c, coef_d*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculates cubic general equations roots.
 
