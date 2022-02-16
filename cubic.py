@@ -7,7 +7,7 @@ from collections import Counter
 from .exceptions import check_types, check_vals
 
 
-def F(
+def _f(
     num,
     get="fraction"
 ):
@@ -58,7 +58,7 @@ def cbrt(radicand):
 
     Parameter
     ---------
-    radicand: int, float; required. Number to take the root of.
+    radicand: int, float, fractions.Fraction; required. Number to take the root of.
 
     Returns
     -------
@@ -68,7 +68,7 @@ def cbrt(radicand):
     global _radicand_type_exc_msg
     _radicand_type_exc_msg = "class type not supported; int, float or fractions.Fraction object expected."
     check_types(radicand, (int, float, fractions.Fraction), _radicand_type_exc_msg)
-    radicand = F(radicand)
+    radicand = _f(radicand)
 
     if radicand < 0:
         rt = round((-1) * abs(radicand ** (1 / 3)), 12)
@@ -93,7 +93,7 @@ def to_depressed(
     Parameters
     ----------
     coef_a: int, float; required (it cannot be 0).
-    cof_b: int, float; required.
+    coef_b: int, float; required.
     coef_c: int, float; required.
     coef_d: int, float; required.
 
@@ -107,11 +107,11 @@ def to_depressed(
     for coef in (coef_a, coef_b, coef_c, coef_d):
         check_types(coef, (int, float, fractions.Fraction), _coefs_type_exc_msg)
 
-    a, b, c, d = F(coef_a), F(coef_b), F(coef_c), F(coef_d)
+    a, b, c, d = _f(coef_a), _f(coef_b), _f(coef_c), _f(coef_d)
     coef_p = (c / a) - (b ** 2) / (3 * (a ** 2))
     coef_q = 2 * (b / (3 * a)) ** 3 - (b * c) / (3 * (a ** 2)) + d / a
-    coef_p = round(F(coef_p, get="asfloat"), 12)
-    coef_q = round(F(coef_q, get="asfloat"), 12)
+    coef_p = round(_f(coef_p, get="asfloat"), 12)
+    coef_q = round(_f(coef_q, get="asfloat"), 12)
 
     return coef_p, coef_q
 
@@ -129,12 +129,12 @@ def cbdelta(
     ----------
     coef_p: int, float; required. Coefficient 'p' from depressed equation.
     coef_q: int, float; required. Coefficient 'q' from depressed equation.
-    as_frac: bool (True or False); optional. Object type to be returned.
+    as_frac: bool (True or False); optional. False by default. Object type to be returned.
 
     Returns
     -------
     Cubic delta number.
-    float if as_frac passed as False; fractions.Fraction object otherwise.
+    fractions.Fration object if as_frac passed as True, float otherwise.
     """
 
     _as_frac_type_exc_msg = "Bool expected; True if delta required as fractions.Fraction object or False for float."
@@ -144,14 +144,14 @@ def cbdelta(
 
     check_vals(as_frac, (True, False), _as_frac_type_exc_msg)
 
-    p, q = F(coef_p), F(coef_q)
+    p, q = _f(coef_p), _f(coef_q)
     delta = (q ** 2) + ((4 * (p ** 3)) / 27)
 
     if as_frac:
-        delta = F(delta)
+        delta = _f(delta)
 
     else:
-        delta = F(delta, get="asfloat")
+        delta = _f(delta, get="asfloat")
 
     return delta
 
@@ -184,13 +184,13 @@ def depressed_roots(
     check_vals(symbolic, (True, False), _symbolic_exc_msg)
 
     delta = cbdelta(coef_p, coef_q, True)
-    p, q = F(coef_p), F(coef_q)
+    p, q = _f(coef_p), _f(coef_q)
 
     if delta > 0:
         z1 = cbrt(0.5 * (-q + math.sqrt(delta))) + cbrt(0.5 * (-q - math.sqrt(delta)))
         imaginary_part = math.sqrt(3 * (z1 ** 2) + 4 * p) * 0.5
         imaginary_part = str(round(F(imaginary_part, "asfloat"), 11))
-        z1 = round(F(z1, "asfloat"), 11)
+        z1 = round(_f(z1, "asfloat"), 11)
         real_part = str(-0.5 * z1)
         z2 = real_part + " + " + imaginary_part + "i"
         z3 = real_part + " - " + imaginary_part + "i"
@@ -203,9 +203,9 @@ def depressed_roots(
             return display(z1, z2, z3)
 
     elif delta == 0:
-        z1 = F(cbrt(-4 * q), "asfloat")
+        z1 = _f(cbrt(-4 * q), "asfloat")
         z1 = str(round(z1, 11))
-        z2 = F(cbrt(4 * q) / 2, "asfloat")
+        z2 = _f(cbrt(4 * q) / 2, "asfloat")
         z2 = str(round(z2, 11))
         z3 = z2
 
@@ -215,10 +215,10 @@ def depressed_roots(
             return display(z1, z2, z3)
 
     else:
-        formula_angle = math.acos(-q * F(0.5) * F(math.sqrt(27 / (-p ** 3)))) / 3
+        formula_angle = math.acos(-q * _f(0.5) * _f(math.sqrt(27 / (-p ** 3)))) / 3
         z1 = str(round(2 * math.sqrt(-p / 3) * math.cos(formula_angle), 11))
-        z2 = str(round(2 * math.sqrt(-p / 3) * math.cos(F(formula_angle) + 2 * F(math.pi) / 3), 11))
-        z3 = str(round(2 * math.sqrt(-p / 3) * math.cos(F(formula_angle) + 4 * F(math.pi) / 3), 11))
+        z2 = str(round(2 * math.sqrt(-p / 3) * math.cos(_f(formula_angle) + 2 * _f(math.pi) / 3), 11))
+        z3 = str(round(2 * math.sqrt(-p / 3) * math.cos(_f(formula_angle) + 4 * _f(math.pi) / 3), 11))
 
         if symbolic:
             z1, z2, z3 = sp.symbols(z1 + " " + z2 + " " + z3)
@@ -260,7 +260,7 @@ def roots(
 
     check_vals(symbolic, (True, False), _symbolic_exc_msg)
 
-    a, b, c, d = F(coef_a), F(coef_b), F(coef_c), F(coef_d)
+    a, b, c, d = _f(coef_a), _f(coef_b), _f(coef_c), _f(coef_d)
     variable_change = -b / (3 * a)
     corresp_p = (c / a) - (b ** 2) / (3 * (a ** 2))
     corresp_q = 2 * (b / (3 * a)) ** 3 - (b * c) / (3 * (a ** 2)) + d / a
@@ -278,7 +278,7 @@ def roots(
             return display(x1, x2, x3)
 
     else:
-        z1 = cbrt(0.5*(-corresp_q + F(math.sqrt(delta)))) + cbrt(0.5 * (-corresp_q - F(math.sqrt(delta))))
+        z1 = cbrt(0.5*(-corresp_q + _f(math.sqrt(delta)))) + cbrt(0.5 * (-corresp_q - _f(math.sqrt(delta))))
         real_part = str(round(-0.5 * z1 + variable_change, 11))
         imaginary_part = str(round(0.5 * math.sqrt(3 * (z1 ** 2) + 4 * corresp_p), 11))
         x1 = str(round(z1 + variable_change, 11))
