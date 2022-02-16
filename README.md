@@ -405,7 +405,7 @@ __depressed_roots(*coef_p, coef_q, symbolic*)__\
 __roots(*coef_a, coef_b, coef_c, coef_d*)__\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculates cubic general equations roots.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ *coef_a:* *int*, *float*, *fractions.Fraction*; required (it cannot be 0).\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Parameters:__ *coef_a:* *int*, *float*, *fractions.Fraction*; required (it cannot be *0*).\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Equation coefficient 'a'.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*coef_b:* *int*, *float*, *fractions.Fraction*; required.\
