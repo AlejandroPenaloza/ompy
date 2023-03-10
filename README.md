@@ -452,7 +452,7 @@ __roots(*coef_a, coef_b, coef_c, coef_d*)__\
 
 ![roots symbolic code example2](https://user-images.githubusercontent.com/56207845/145701993-8b06b014-b0bc-45f6-83cc-22bea1862232.jpg)
 
-
+[WORK IN PROGRESS]
 
 ### Citations and credits
 
