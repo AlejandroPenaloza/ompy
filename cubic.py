@@ -189,7 +189,7 @@ def depressed_roots(
     if delta > 0:
         z1 = cbrt(0.5 * (-q + math.sqrt(delta))) + cbrt(0.5 * (-q - math.sqrt(delta)))
         imaginary_part = math.sqrt(3 * (z1 ** 2) + 4 * p) * 0.5
-        imaginary_part = str(round(F(imaginary_part, "asfloat"), 11))
+        imaginary_part = str(round(_f(imaginary_part, "asfloat"), 11))
         z1 = round(_f(z1, "asfloat"), 11)
         real_part = str(-0.5 * z1)
         z2 = real_part + " + " + imaginary_part + "i"
